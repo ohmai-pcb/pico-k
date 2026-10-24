@@ -1,0 +1,34 @@
+# Omega PCC-SMD constraints (DRAFT, agent-generated, not yet reviewed). One part = ONE clip (one contact);
+# a pair of clips (J2, J3) makes one miniature 2-pin thermocouple jack. Spec sheet pages 1-2 (English; 3-4 French).
+# Pages = page of datasheets/PCC-SMD.pdf (p.1 is printed "1").
+schema: ohmai-constraints/v1
+part: PCC-SMD
+mpn: PCC-SMD-20   # orderable codes: PCC-SMD-20 (strip of 20), PCC-SMD-500, PCC-SMD-1000 (p.1 Model No.)
+manufacturer: Omega (DwyerOmega)
+package: SMT clip 11.94 x 5.6 x 2.37 mm with side tabs into plated slots
+match: {value: PCC-SMD, mpn: PCC-SMD}
+datasheet:
+  file: datasheets/PCC-SMD.pdf
+  revision: "Omega spec sheet PCC-SMD (no revision or date printed)"
+  url: https://assets.omega.com/spec/PCC-SMD.pdf
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+recommended:
+  - {param: Ambient operating temperature, min: -50, max: 120, unit: degC, cite: {page: 1, where: Features}, note: "Ni-plated beryllium copper; higher with high-temp PCB"}
+layout_notes:
+  - {text: "Use the 'BARE PCB' land pattern and slot dimensions of p.2 (pads + side-tab slots + rear slots). pico-k footprint: pads x ±1.60..±5.87 mm, side tabs to ±7.21 mm, 14.42 x 11.27 mm for the pair (architecture.md M1)", cite: {page: 2, where: "BARE PCB drawing"}}
+  - {text: "Omega marks the 'ideal cold junction compensation location' at the clips; the flat bottom couples them thermally to the board - place the MAX31856 there, same copper/temperature as the clips", cite: {page: 2, where: "drawing, IDEAL COLD JUNCTION COMPENSATION LOCATION"}}
+  - {text: "Asymmetric design prevents plugging the male connector in backwards (polarity is set by which clip position takes which blade)", cite: {page: 1, where: Features}}
+  - {text: "Polarity (D-009): orientation reference = the p.2 assembly top view (figure with 'IDEAL COLD JUNCTION COMPENSATION LOCATION', 'SMT CONNECTORS (2x)', 'MINI THERMOCOUPLE MALE CONNECTOR'): PCB seen from the component side, board edge on the right, male plug entering from the right with its OMEGA label readable; the '+' marked side of the plug is the UPPER clip and the '-' side the LOWER clip (clip pitch 5.6 mm). The p.2 FRONT PANEL DESIGN view is also a plan view (seen from above, component side): the front panel is drawn edge-on below the clips (1.57 = PANEL THICKNESS), the plug is outside the panel at the bottom of the view and its OMEGA label is rotated 180° (not mirrored); it agrees: '-' on the left, '+' on the right (7.92 mm). Same rule for pico-k: looking at the board edge from outside with the component side up, + (J2 -> T+) is the RIGHT clip and - (J3 -> T-) is the LEFT clip; seen from the top with that edge toward the viewer, + is on the right. Footprint and silkscreen: place each clip exactly as drawn in the p.2 views (do not mirror one clip), mark '+' and '-' on the silkscreen next to J2/J3 at the board edge", cite: {page: 2, where: "assembly top view (cold-junction figure) and FRONT PANEL DESIGN view"}}
+  - {text: "Connector can be made flush with the PCB front (1.0 dimension); then a 3rd through-hole slot location is required", cite: {page: 2, where: "drawing note *"}}
+open_questions:
+  - "RESOLVED D-009 (owner, P5-12): polarity is defined by the p.2 drawing (see layout note 'Polarity'). Type K: T+ = Chromel, T- = Alumel (MAX31856 Table 1 p.12). Rev-A sanity checks only (bring-up plan): magnet on the probe legs (Alumel - is magnetic, Chromel + is not; TE Connectivity thermocouple types page, fetched 2026-10-15) and a warm-tip check (warming the tip must raise the reading)."
+  - "Footprint pad numbering is not defined by Omega; this file uses pad '1' for the contact (pads + tabs are one BeCu part). Confirm the tabs are meant to be soldered (plated slots) and that pads and tabs share pad number 1 in the footprint."
+  - "Tab depth on a 1.0 mm board: ESTIMATE ~0.17 mm below the bottom (phase 2 / D-006 accepts tab tips <= 0.2 mm for J1; does the same acceptance cover the PCC-SMD tabs?)."
+pins:
+  - {number: "1", name: CONTACT, direction: passive, cite: {page: 1, where: "Features (use 1 contact per pin)"},
+     note: "single thermocouple contact (clip pads and side tabs). J2 -> MAX31856 T+ through 100 ohm, J3 -> T- through 100 ohm (see MAX31856MUD+T.yaml pins 3/4)",
+     required_external: [{kind: resistor, nominal: 100, unit: ohm, cite: {page: 27, where: "Fig. 8", doc: "MAX31856MUD+T.pdf"}, note: "series resistor toward the MAX31856 input (R12 / R13)"}]}

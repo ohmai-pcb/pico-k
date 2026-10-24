@@ -1,0 +1,267 @@
+schema: ohmai-datasheets/v1
+datasheets:
+- filename: datasheets/ABM8-272-T3.pdf
+  mpn: ABM8-272-T3
+  lcsc: C20625731
+  url: https://www.lcsc.com/product-detail/C20625731.html
+  sha256: f4b5787cbc51e7f6366333491ec09884ad406dd348fe540040f0fc043ab5457f
+  cited_pages:
+  - 1
+  - 2
+  revision: 'Drawing #456603, Revision IR, Date of Issue Nov 16th 2023'
+- filename: datasheets/AOTA-B201610S3R3-101-T.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://www.symmetryelectronics.com/products/abracon/aota-b201610s3r3-101-t/
+  sha256: b15dcb32224c50ddf5c7643358bdef49177b451d72933d7fbb02f3756aca7827
+  cited_pages: []
+- filename: datasheets/CL10A106MA8NRNC.pdf
+  mpn: CL10A106MA8NRNC
+  lcsc: C96446
+  url: https://www.compel.ru/infosheet/SAMSUNG/CL10A106MA8NRNC
+  sha256: 47807d590661643e74924252bba72abba7fb1749e9a2c5d1aacebe6d6a77cb88
+  cited_pages: []
+- filename: datasheets/CL10A475KO8NNNC.pdf
+  mpn: CL10A475KO8NNNC
+  lcsc: C19666
+  url: https://www.ceramic-capacitor.com/pdf-d7/cl10a475ko8nnnc.pdf
+  sha256: 14f9af977f04e038709fd78deb61d6cea0fcd51221392bac981924699869e452
+  cited_pages: []
+- filename: datasheets/CL21A106KAYNNNE.pdf
+  mpn: CL21A106KAYNNNE
+  lcsc: C15850
+  url: https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/503/CL21A106KAYNNNE_Char.pdf
+  sha256: 8a03285c8b7134980b9d12c67fe0ac6567633109c859dd37628c462b41e4f80f
+  cited_pages: []
+- filename: datasheets/CL31A106KBHNNNE.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://www.ceramic-capacitor.com/pdf-f7/cl31a106kbhnnne.pdf
+  sha256: 6d2d20aed0b68f10ffc17d75402c8351ead7dd2ff4bc6ac0317673d58a52c6a8
+  cited_pages: []
+- filename: datasheets/DFE201612P-2R2M.pdf
+  mpn: DFE201612P-2R2M
+  lcsc: C79317
+  url: https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8588955072436834304
+  sha256: 652bafcd40c034919523ae877fed2d9ad8a6d850f80e6935bbd41689877906f4
+  cited_pages: []
+- filename: datasheets/DMG1012T-7.pdf
+  mpn: DMG1012T-7
+  lcsc: C20512
+  url: https://www.lcsc.com/product-detail/C20512.html
+  sha256: 2f226aaee67a900773753a79c93d565820d01a300a4b1b7409fd07072da8aa40
+  cited_pages:
+  - 1
+  - 2
+  revision: DS31783 Rev. 8-2, February 2022
+- filename: datasheets/GD25Q32EEIGR.pdf
+  mpn: GD25Q32EEIGR
+  lcsc: C2973794
+  url: https://www.lcsc.com/product-detail/C2973794.html
+  sha256: 4eda438f26bc9bdd65f08f415954903844aa8b1a23f7da21e499e2efc26855f2
+  cited_pages: []
+- filename: datasheets/KT-0603G.pdf
+  mpn: KT-0603G
+  lcsc: C12624
+  url: https://www.lcsc.com/product-detail/C12624.html
+  sha256: 770831ccd4b3ab793a5d4df9fbf8aeaa80170f904de09f4032b09357595872ad
+  cited_pages: []
+- filename: datasheets/KT-0805G.pdf
+  mpn: KT-0805G
+  lcsc: C2297
+  url: https://www.lcsc.com/product-detail/C2297.html
+  sha256: 853e6752f600e247475ba548092207fa4fc707a3f8a0b1562a834bc9a901a8d9
+  cited_pages:
+  - 2
+  - 3
+  - 10
+  revision: Specification for approval, Revision A.0, issue date 2018-12-06
+- filename: datasheets/LQH3NPN2R2MMEL.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://www.lcsc.com/product-detail/C86081.html
+  sha256: 8814cd5dd6d20065490625540bd3159bbf763a727d8463f094594ce4cfdd624d
+  cited_pages: []
+- filename: datasheets/MAX31856MUD+T.pdf
+  mpn: MAX31856MUD+T
+  lcsc: C2653162
+  url: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX31856.pdf
+  sha256: 385702a94433d75e89ad4f04ab197fd73ab166a21fbd453fcedd9a9821acc662
+  cited_pages:
+  - 2
+  - 3
+  - 4
+  - 5
+  - 10
+  - 14
+  - 15
+  - 27
+  - 28
+  revision: 19-7534; Rev 0; 2/15
+- filename: datasheets/MBR120VLSFT1G.pdf
+  mpn: MBR120VLSFT1G
+  lcsc: C223608
+  url: https://www.lcsc.com/product-detail/C223608.html
+  sha256: 82d87e5b0f2fe6677964f36f8e7dfcb681b6670bf9a9f9caf747d2382726f5e5
+  cited_pages:
+  - 2
+  - 5
+  revision: MBR120VLSFT1/D Rev. 4, October 2014
+- filename: datasheets/MPL-AL4020-3R3.pdf
+  mpn: MPL-AL4020-3R3
+  lcsc: C3222847
+  url: https://www.lcsc.com/product-detail/C3222847.html
+  sha256: 4cdc4bf7b6ac26429472762411a39a936512c31ac33106446b226a143036f3c0
+  cited_pages: []
+- filename: datasheets/MPL-AT2512-3R3.pdf
+  mpn: MPL-AT2512-3R3
+  lcsc: C3224274
+  url: https://jlcpcb.com/partdetail/C3224274
+  sha256: 42fbcaeabe24acb209a8c53f2cabb26060d107ba4ef401a8f836e438efa232ec
+  cited_pages:
+  - 1
+  - 3
+  revision: Rev. 1.2, 7/6/2023
+- filename: datasheets/PCC-SMD.pdf
+  mpn: PCC-SMD-20
+  lcsc: ''
+  url: https://assets.omega.com/spec/PCC-SMD.pdf
+  sha256: d24e9e576f0c543e8a48ce2d3d73e47acc16a514321cc6a3050c2e7b1c77e231
+  cited_pages:
+  - 1
+  - 2
+  revision: Omega spec sheet PCC-SMD (no revision or date printed)
+- filename: datasheets/RP2350A.pdf
+  mpn: RP2350A
+  lcsc: C42411118
+  url: https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf
+  sha256: 2877d0f270fb6d6a57943bee58aaad536aa027bea1e5b1c4ce2541a3230d4be8
+  cited_pages:
+  - 452
+  - 453
+  - 454
+  - 455
+  - 456
+  - 556
+  - 1335
+  - 1336
+  - 1337
+  - 1338
+  - 1339
+  - 1340
+  - 1343
+  - 1344
+  revision: RP2350 Datasheet build-date 2025-07-29, build-version d126e9e-clean
+- filename: datasheets/SWPA3015S2R2MT.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://www.lcsc.com/product-detail/C43389.html
+  sha256: 11a724088069e1fecf42943e5609b675cb1f8455afb09d433ea21f6e2bbb12d1
+  cited_pages: []
+- filename: datasheets/TDK105CBJ475MV-F.pdf
+  mpn: TDK105CBJ475MV-F
+  lcsc: C22385335
+  url: https://datasheet.lcsc.com/datasheet/pdf/c61da25d4a37446bb4cac279b9ea2540.pdf?productCode=C22385335
+  sha256: 02a680fbbdbc36a691bb305d5d2c486719c7b46be955dcb144173c25a5216930
+  cited_pages: []
+- filename: datasheets/TPS63001DRCR.pdf
+  mpn: TPS63001DRCR
+  lcsc: C28060
+  url: https://www.ti.com/lit/ds/symlink/tps63001.pdf
+  sha256: 31ce83ee0e0a6b088cf34c5a5587b7dc94b3815d6281bbbf94eed3f1cf2e8496
+  cited_pages:
+  - 3
+  - 4
+  - 5
+  - 7
+  - 10
+  - 12
+  - 16
+  revision: SLVS520C - March 2006 - revised October 2015
+- filename: datasheets/TS-1187A-B-A-B.pdf
+  mpn: TS-1187A-B-A-B
+  lcsc: C318884
+  url: https://www.lcsc.com/product-detail/C318884.html
+  sha256: 64b75233cadaceb75ab3f3e33b532af8d04de98821c910ea13eb76c5fd1eed34
+  cited_pages:
+  - 1
+  revision: Drawing TS-1187A-X-X-X, revision A0
+- filename: datasheets/TYPE-C-16PIN-2MD-073.pdf
+  mpn: TYPE-C 16PIN 2MD(073)
+  lcsc: C2765186
+  url: https://www.lcsc.com/product-detail/C2765186.html
+  sha256: fe10da58945c9782ffe489b2079893a9baf90ff234efa4906e5e02744735e8f5
+  cited_pages:
+  - 1
+  revision: Drawing TYPE-C 16PIN 2MD(073), rev A (customer copy)
+- filename: datasheets/TYPE-C-31-M-12.pdf
+  mpn: TYPE-C-31-M-12
+  lcsc: C165948
+  url: https://datasheet.lcsc.com/datasheet/pdf/9e56b777c022540fcce7c7f67825f55e.pdf
+  sha256: 6ae33d50ac47820114661138dc4e4659f40fdc5d4f485b46685dfec338da1a9e
+  cited_pages: []
+- filename: datasheets/USB-2.0-ECN-Device-Capacitance.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://www.usb.org/sites/default/files/usb_20_20250603.zip
+  sha256: a6a8213b57001e3397e9376a287c09c882d9870ac1ef465465104321385a24d1
+  cited_pages: []
+- filename: datasheets/USB-2.0-Spec.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://www.usb.org/sites/default/files/usb_20_20250603.zip
+  sha256: d39698a33486c399124af92bd02e4f978fd9a836b5cf4e52e6e4633eb1d89f61
+  cited_pages: []
+- filename: datasheets/USB-Type-C-Spec-R2.0.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://usb.org/sites/default/files/USB%20Type-C%20Spec%20R2.0%20-%20August%202019.pdf
+  sha256: 87d15160bf8bd25129b27e0b7c5e261ed0b1806b3b0d3a7b5d8b1eb783dc9981
+  cited_pages:
+  - 69
+  - 236
+- filename: datasheets/USBLC6-2SC6.pdf
+  mpn: USBLC6-2SC6
+  lcsc: C7519
+  url: https://www.lcsc.com/product-detail/C7519.html
+  sha256: 8ba7ab4ec1781b7f6052f5999a2304bd611c0ed2b5e8f36ffa5092552932a42e
+  cited_pages:
+  - 1
+  - 2
+  - 5
+  - 8
+  revision: Doc ID 11265 Rev 5, October 2011
+- filename: datasheets/W25Q32RVXHJQ.pdf
+  mpn: W25Q32RVXHJQ
+  lcsc: C32246052
+  url: https://www.lcsc.com/product-detail/C32246052.html
+  sha256: a863fb8b34fa72d70eb9ee0fa8ffe5ad911b57383e17b0cf8a1eef4118061d2a
+  cited_pages:
+  - 5
+  - 67
+  - 77
+  revision: Revision E, November 13, 2025
+- filename: datasheets/hardware-design-with-rp2350.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://datasheets.raspberrypi.com/rp2350/hardware-design-with-rp2350.pdf
+  sha256: cef88bc7d87e67b4262ee15f2b94b03566667143f4e8daf6931828bef6408059
+  cited_pages:
+  - 10
+  - 11
+  - 13
+  - 20
+- filename: datasheets/pico-2-datasheet.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://datasheets.raspberrypi.com/pico/pico-2-datasheet.pdf
+  sha256: cbcfaf881018c686495a2e53c7bd281e7e0a8217d79447d73eda7c8f74b7f675
+  cited_pages:
+  - 15
+  - 20
+- filename: datasheets/pico-2-w-schematic.pdf
+  mpn: ''
+  lcsc: ''
+  url: https://datasheets.raspberrypi.com/picow/pico-2-w-schematic.pdf
+  sha256: f6791f8a818bc73b6963bd4cdb66afaa3e2479db9edd9ef76bb4aaaacc9bf7d1
+  cited_pages: []

@@ -1,0 +1,84 @@
+# MAX31856MUD+T constraints (DRAFT, agent-generated, not yet reviewed). Maxim 19-7534 Rev 0 2/15.
+# Pages = printed page numbers ("Maxim Integrated | N"). pico-k: type K via two Omega PCC-SMD clips, SPI1 to RP2350.
+schema: ohmai-constraints/v1
+part: MAX31856MUD+T
+mpn: MAX31856MUD+T
+manufacturer: Analog Devices (Maxim Integrated)
+package: TSSOP-14
+match: {value: MAX31856, mpn: MAX31856MUD+T}
+datasheet:
+  file: datasheets/MAX31856MUD+T.pdf
+  revision: "19-7534; Rev 0; 2/15"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+abs_max:
+  - {param: "AVDD, DVDD", min: -0.3, max: 4.0, unit: V, cite: {page: 2, where: "Absolute Maximum Ratings"}}
+  - {param: "T+, T-, BIAS voltage", min: -45, max: 45, unit: V, cite: {page: 2, where: "Absolute Maximum Ratings"}}
+  - {param: "T+, T-, BIAS current", min: -20, max: 20, unit: mA, cite: {page: 2, where: "Absolute Maximum Ratings"}}
+  - {param: All other pins, min: -0.3, max: VDVDD+0.3, unit: V, cite: {page: 2, where: "Absolute Maximum Ratings"}}
+  - {param: Junction temperature, max: 150, unit: degC, cite: {page: 2, where: "Absolute Maximum Ratings"}}
+  - {param: Storage temperature, min: -65, max: 150, unit: degC, cite: {page: 2, where: "Absolute Maximum Ratings"}}
+  - {param: ESD HBM (all pins), max: 2000, unit: V, cite: {page: 2, where: "Absolute Maximum Ratings"}}
+recommended:
+  - {param: "VAVDD, VDVDD", min: 3.0, typ: 3.3, max: 3.6, unit: V, cite: {page: 2, where: "Recommended DC Operating Conditions"}}
+  - {param: AVDD - DVDD, min: -100, max: 100, unit: mV, cite: {page: 2, where: "Recommended DC Operating Conditions"}}
+  - {param: Cable resistance per lead, max: 40, unit: kohm, cite: {page: 2, where: "Recommended DC Operating Conditions"}}
+  - {param: Input logic 1 (VIH), min: 2.1, unit: V, cite: {page: 2, where: "Recommended DC Operating Conditions"}}
+  - {param: Input logic 0 (VIL), max: 0.8, unit: V, cite: {page: 2, where: "Recommended DC Operating Conditions"}}
+  - {param: Operating temperature, min: -55, max: 125, unit: degC, cite: {page: 2, where: "Absolute Maximum Ratings (Operating Temperature Range)"}, note: "stated in the Abs Max block; the Electrical Characteristics tables use the same TA range (p.3)"}
+  - {param: "Input common-mode range (T+, T-)", min: 0.5, max: 1.4, unit: V, cite: {page: 3, where: "Electrical Characteristics, Input Common-Mode Range"}, note: "basis of MW-01 / A2-4 (grounded probe at USB ground is outside this range)"}
+  - {param: Bias voltage VBIAS, typ: 0.735, unit: V, cite: {page: 3, where: "Electrical Characteristics"}}
+  - {param: BIAS output resistance RBIAS, typ: 2, unit: kohm, cite: {page: 3, where: "Electrical Characteristics"}}
+  - {param: "Overvoltage rising threshold (T+, T-, BIAS)", min: VAVDD-0.1, typ: VAVDD+0.17, max: VAVDD+0.35, unit: V, cite: {page: 3, where: "Electrical Characteristics, Note 8"}, note: "hysteresis 0.09 V typ"}
+  - {param: "Undervoltage falling threshold (T+, T-, BIAS)", min: -0.3, typ: -0.17, max: 0, unit: V, cite: {page: 4, where: "Electrical Characteristics, Note 8"}, note: "hysteresis 0.09 V typ. While OVUV is set, conversions are suspended (p.26 Fault Status register; p.14)"}
+  - {param: Power-on-reset threshold VPOR, typ: 2.7, max: 2.85, unit: V, cite: {page: 3, where: "Electrical Characteristics"}, note: "hysteresis 0.1 V"}
+  - {param: Serial clock frequency fSCL, max: 5, unit: MHz, cite: {page: 5, where: "Electrical Characteristics"}}
+  - {param: "Output high VOH (IOUT = -1.6 mA)", min: VCC-0.4, unit: V, cite: {page: 5, where: "Electrical Characteristics"}}
+  - {param: "Output low VOL (IOUT = 1.6 mA)", max: 0.4, unit: V, cite: {page: 5, where: "Electrical Characteristics"}}
+evb_reference: {document: "MAX31856 Fig. 8 Typical Connection to Reduce the Effect of Noise Pickup in the Thermocouple Cable", cite: {page: 27, where: "Fig. 8"}}
+layout_notes:
+  - {text: "0.1 uF ceramic bypass capacitors close to the VDD pins and to GND", cite: {page: 27, where: "Noise Considerations"}}
+  - {text: "100 nF differential capacitor across T+ and T-; in high-noise / RF environments add 10 nF from T+ to GND and from T- to GND (Fig. 8)", cite: {page: 27, where: "Noise Considerations"}}
+  - {text: "Connect BIAS to T- (biases the thermocouple within the input common-mode range). Junction point per Fig. 8: BIAS joins the T- line on the thermocouple/connector side of the T- 100 ohm series resistor; the 10 nF and 100 nF caps are on the pin side", cite: {page: 27, where: "Thermocouple Temperature Sensing Guidelines; Fig. 8"}}
+  - {text: "If faults beyond ±45 V are possible, add series resistance (example 2 kOhm) in T+, T- and BIAS; not planned for pico-k (D-006 P4-8)", cite: {page: 27, where: "Input Protection"}}
+  - {text: "SPI: CPHA must be 1 (CPOL either); SDO is high impedance while CS is high (firmware note)", cite: {page: 15, where: "Serial Interface, Table 3 note"}}
+  - {text: "Open-circuit detection mode (firmware): with 100 ohm + 100 nF input filter the source resistance is < 5 kOhm, so mode 01 applies", cite: {page: 14, where: "Table 4"}}
+  - {text: "Series resistors raise offset (p.28 example: 1 ohm mismatch + 50 ohm cable); match the two 100 ohm input resistors as closely as possible; if the cable resistance is known, increase the T- resistor by it", cite: {page: 28, where: "Effect of Series Resistance"}}
+  - {text: "Place the IC at the same temperature as the thermocouple connector (cold junction); keep it away from heat sources (regulator, D1)", cite: {page: 28, where: "MAX31856 Location"}}
+open_questions:
+  - "DRDY and FAULT are 'output' in the Pin Description (p.10) and the VOH/VOL spec (p.5) suggests push-pull, but Rev 0 does not say push-pull or open-drain (P5-9, Reviewer-A F12). RESOLVED D-009 (owner): no pull-up fitted; DNF 10 kOhm pull-up footprints to 3V3 at the DRDY and FAULT test pads (R23, R24); no wire-OR; confirm the drive type on rev-A (bring-up plan) and fit R23/R24 only if the outputs prove open-drain."
+  - "AGND and DGND: datasheet gives no rule how to join them. pico-k plan: single ground plane, both pins to GND - confirm."
+  - "Fig. 8 shows 100 ohm in series with T+ and T- (two resistors). pico-k R12/R13. p.27 also allows larger series R for overvoltage, at the cost of offset."
+pins:
+  - {number: "1", name: AGND, direction: ground, cite: {page: 10, where: "Pin Description"}, note: "analog ground"}
+  - {number: "2", name: BIAS, direction: analog_out, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -45, max: 45, unit: V, cite: {page: 2}},
+     note: "bias source, nominally 0.735 V (RBIAS 2 kOhm, p.3), floating when no conversion runs; connect to T- on the connector side of the T- 100 ohm (Fig. 8 p.27)"}
+  - {number: "3", name: T-, direction: analog_in, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -45, max: 45, unit: V, cite: {page: 2}},
+     note: "thermocouple negative input (to the '-' PCC-SMD clip through 100 ohm)",
+     required_external: [
+       {kind: resistor, nominal: 100, unit: ohm, cite: {page: 27, where: "Fig. 8"}, note: "series, between connector and pin"},
+       {kind: capacitor, to: GND, nominal: 10, unit: nF, cite: {page: 27, where: "Fig. 8"}, note: "0.01 uF T- to GND, recommended in high-noise environments"},
+       {kind: capacitor, to: "pin:4", nominal: 100, unit: nF, cite: {page: 27, where: "Noise Considerations / Fig. 8"}, note: "differential cap across T+ / T-, 'strongly recommended'"}]}
+  - {number: "4", name: T+, direction: analog_in, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -45, max: 45, unit: V, cite: {page: 2}},
+     note: "thermocouple positive input",
+     required_external: [
+       {kind: resistor, nominal: 100, unit: ohm, cite: {page: 27, where: "Fig. 8"}, note: "series, between connector and pin"},
+       {kind: capacitor, to: GND, nominal: 10, unit: nF, cite: {page: 27, where: "Fig. 8"}, note: "0.01 uF T+ to GND"}]}
+  - {number: "5", name: AVDD, direction: supply_in, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -0.3, max: 4.0, unit: V, cite: {page: 2}},
+     note: "analog supply 3.0-3.6 V; within ±100 mV of DVDD",
+     required_external: [{kind: capacitor, to: GND, nominal: 0.1, unit: uF, cite: {page: 10, where: "Pin Description"}, note: "bypass to AGND, close to the pin"}]}
+  - {number: "6", name: DNC, direction: nc, nc: true, cite: {page: 10, where: "Pin Description"}, note: "Do Not Connect"}
+  - {number: "7", name: DRDY, direction: output, cite: {page: 10, where: "Pin Description"}, note: "data ready output, goes low when a new result is available (p.15). pico-k: test pad + DNF 10 kOhm pull-up R23 (D-009)"}
+  - {number: "8", name: DVDD, direction: supply_in, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -0.3, max: 4.0, unit: V, cite: {page: 2}},
+     note: "digital supply 3.0-3.6 V",
+     required_external: [{kind: capacitor, to: GND, nominal: 0.1, unit: uF, cite: {page: 10, where: "Pin Description"}, note: "bypass to DGND"}]}
+  - {number: "9", name: CS, direction: input, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -0.3, max: VDVDD+0.3, unit: V, cite: {page: 2}},
+     note: "chip select, active low. pico-k: GP13 via JP; 10 kOhm pull-up to 3V3 on the IC side of the jumper (architecture.md, R-14)"}
+  - {number: "10", name: SCK, direction: input, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -0.3, max: VDVDD+0.3, unit: V, cite: {page: 2}}, note: "serial clock input, <= 5 MHz. pico-k GP14"}
+  - {number: "11", name: SDO, direction: output, cite: {page: 10, where: "Pin Description"}, note: "serial data output. pico-k GP12 (SPI1 RX)"}
+  - {number: "12", name: SDI, direction: input, cite: {page: 10, where: "Pin Description"}, abs_max: {min: -0.3, max: VDVDD+0.3, unit: V, cite: {page: 2}}, note: "serial data input. pico-k GP15 (SPI1 TX)"}
+  - {number: "13", name: FAULT, direction: output, cite: {page: 10, where: "Pin Description"}, note: "cable / thermocouple / temperature fault output (asserts when a non-masked fault is set, p.19-21). pico-k: test pad + DNF 10 kOhm pull-up R24 (D-009)"}
+  - {number: "14", name: DGND, direction: ground, cite: {page: 10, where: "Pin Description"}, note: "digital ground"}

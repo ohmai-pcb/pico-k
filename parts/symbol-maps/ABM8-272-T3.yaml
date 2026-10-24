@@ -1,0 +1,8 @@
+# Symbol map: KiCad Device:Crystal_GND24 -> Abracon ABM8-272-T3 (D-012 P7-4).
+# Datasheet p.2 "5.0 Mechanical Dimensions": pads 1/3 crystal, 2/4 no stated function (to GND, D-007 P5-7).
+symbol: "Device:Crystal_GND24"
+pins:
+  "1": {datasheet: "1", symbol_name: "1", cite: {page: 2}}
+  "2": {datasheet: "2", symbol_name: G, cite: {page: 2}}
+  "3": {datasheet: "3", symbol_name: "3", cite: {page: 2}}
+  "4": {datasheet: "4", symbol_name: G, cite: {page: 2}}

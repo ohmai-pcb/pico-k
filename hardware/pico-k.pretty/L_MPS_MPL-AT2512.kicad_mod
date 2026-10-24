@@ -1,0 +1,159 @@
+(footprint "L_MPS_MPL-AT2512"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "MPS MPL-AT2512 2.5 x 2.0 mm molded inductor. Land pattern MPS MPL-AT2512-3R3 Rev 1.2 p.3 (2.90 overall, 2.30 tall, 0.50 gap: pads 1.20 x 2.30 at +/-0.85); pad 1 = dot (start of winding).")
+	(tags "inductor MPS MPL-AT2512")
+	(property "Reference" "REF**"
+		(at 0 -2 0)
+		(layer "F.SilkS")
+		(uuid "9d231369-1bd6-4ebc-b18c-7568a4fa489d")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Value" "MPL-AT2512"
+		(at 0 2 0)
+		(layer "F.Fab")
+		(uuid "4d0e83f2-57a3-4ce5-ac99-af68b6a34ed8")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.09)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "37db1811-dc13-4ed2-9a0b-5349b3332009")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bcd2edfc-da22-454e-96ec-a778dfc291b3")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_circle
+		(center -1.6 -1.35)
+		(end -1.5 -1.35)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "c3522678-5907-4344-904a-02b41e71304a")
+	)
+	(fp_line
+		(start -1.7 -1.4)
+		(end 1.7 -1.4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "240a2b50-ba14-4e4b-b0a1-dbafb2447ab0")
+	)
+	(fp_line
+		(start -1.7 1.4)
+		(end -1.7 -1.4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "da979be9-1f14-4a29-bc21-3a748cfb665f")
+	)
+	(fp_line
+		(start 1.7 -1.4)
+		(end 1.7 1.4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "40f47159-88a7-48ea-af0f-a5d1942eed6d")
+	)
+	(fp_line
+		(start 1.7 1.4)
+		(end -1.7 1.4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "12fe73b0-4bdc-4f37-b0ac-04195a0c4602")
+	)
+	(fp_line
+		(start -1.25 -1)
+		(end 1.25 -1)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0bb38560-7eea-4d00-997e-cf8b2dcf7570")
+	)
+	(fp_line
+		(start -1.25 1)
+		(end -1.25 -1)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3e9ae03f-3982-428c-872f-b0bdb556b6e4")
+	)
+	(fp_line
+		(start 1.25 -1)
+		(end 1.25 1)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "bbb09437-8318-4212-9db9-e4ec5f60c883")
+	)
+	(fp_line
+		(start 1.25 1)
+		(end -1.25 1)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "50c908e6-62a1-4125-8dee-df0b2b167842")
+	)
+	(pad "1" smd rect
+		(at -0.85 0)
+		(size 1.2 2.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "39331a2d-ad1d-4409-bfe2-517417767a75")
+	)
+	(pad "2" smd rect
+		(at 0.85 0)
+		(size 1.2 2.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "03058f5f-4d64-4809-be4f-c3bfce24ce8d")
+	)
+	(embedded_fonts no)
+)

@@ -1,0 +1,48 @@
+# Block 6: LED, BOOTSEL, ADC sense. Reference: Pico 2 datasheet §5.3-5.4 (p.14-15) and Pico 2 W
+# schematic RP-008306: VBUS/VSYS sense dividers, ADC_VREF filter R20/R21/C27, GP25 LED with TP5 on its anode (D-014), BOOTSEL switch.
+title: "6 LED, BOOTSEL, ADC sense (Pico 2 §5.3-5.4)"
+paper: A4
+parts:
+  R18: {lib: "Device:R", value: "5.6k", mpn: "0402WGF5601TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": VBUS, "2": VBUS_SENSE}}
+  R8: {lib: "Device:R", value: "10k", mpn: "0402WGF1002TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": VBUS_SENSE, "2": GND}}
+  R19: {lib: "Device:R", value: "20k", mpn: "0402WGF2002TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": VSYS, "2": VSYS_DIV}}
+  Q1: {lib: "Transistor_FET:DMG1012T", value: DMG1012T, fp: "Package_TO_SOT_SMD:SOT-523", mpn: DMG1012T-7, nets: {"1": 3V3, "2": VSYS_SENSE, "3": VSYS_DIV}}
+  R9: {lib: "Device:R", value: "10k", mpn: "0402WGF1002TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": VSYS_SENSE, "2": GND}}
+  R20: {lib: "Device:R", value: "200", mpn: "0402WGF2000TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": 3V3, "2": ADC_VREF}}
+  R21: {lib: "Device:R", value: "1", mpn: "0402WGF100KTCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": ADC_VREF, "2": ADC_AVDD}}
+  C27: {lib: "Device:C", value: "4.7u", mpn: TDK105CBJ475MV-F, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": ADC_AVDD, "2": GND}}
+  C32: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": ADC_AVDD, "2": GND}}
+  R22: {lib: "Device:R", value: "470", mpn: "0402WGF4700TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": GP25, "2": LED_A}}
+  D2: {lib: "Device:LED", value: "LED green", mpn: KT-0805G, fp: "LED_SMD:LED_0805_2012Metric", nets: {"1": GND, "2": LED_A}}
+  TP5: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": LED_A}}
+  SW1: {lib: "Switch:SW_Push", value: BOOTSEL, mpn: TS-1187A-B-A-B, fp: "Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A", nets: {"1": BOOTSEL, "2": GND}}
+place:
+  # VBUS sense divider (VBUS_SENSE = GPIO24)
+  - {ref: R18, at: [50.8, 63.5]}
+  - {ref: R8, to: R18.2, at: [0, 5.08], orient: v, near: top}
+  # VSYS sense: Q1 disconnects the divider when 3V3 is off (Pico 2 W RP-008306)
+  - {ref: Q1, at: [111.76, 71.12]}
+  - {ref: R19, to: Q1.3, at: [0, -5.08], orient: v, near: bottom}
+  - {ref: R9, to: Q1.2, at: [0, 5.08], orient: v, near: top}
+  # BOOTSEL push button
+  - {ref: SW1, at: [167.64, 71.12], rot: 270}
+  # ADC_VREF / ADC_AVDD filter
+  - {ref: R20, at: [55.88, 119.38], rot: 90}
+  - {ref: R21, to: R20.2, at: [7.62, 0], orient: h}
+  - {ref: C27, to: R21.2, at: [7.62, 0], orient: v, near: top}
+  # D-030: 100 nF HF decoupler at ADC_AVDD pin 44, in parallel with C27 (owner 2026-10-23, Reviewer-A Q3)
+  - {ref: C32, to: C27.1, at: [10.16, 0], orient: v, near: top}
+  # GP25 LED
+  - {ref: R22, at: [119.38, 119.38], rot: 90}
+  - {ref: D2, to: R22.2, at: [5.08, 0], orient: v, near: top}
+  # TP5 on the LED anode, between R22 and D2: Pico 2 datasheet §3.1 p.9 (voltage swing limited to the LED forward
+  # voltage), Pico 2 Fig. 11 p.20; owner D-014 (Reviewer-A F8/F9)
+  - {ref: TP5, to: D2.2, at: [0, -7.62], pin: "1", hide_value: true}
+symbols:
+  - {to: R18.2, side: right}
+  - {to: Q1.2, side: right}
+  - {to: R20.2, route: [[0, -5.08]], side: right}
+  - {to: C32.1, side: right}
+  - {to: SW1.1, route: [[0, -2.54]], side: right}
+flags:
+  - {net: ADC_AVDD, to: R21.2, side: down}

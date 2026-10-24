@@ -1,0 +1,28 @@
+# Block 5: Pico 2 edge. Reference: Pico 2 datasheet Fig. 2 (pinout, p.8) - 40 castellations in Pico
+# order; test pads TP1-TP7 as Pico 2 datasheet §3.1 (p.9), TP8/TP9 SWD, TP10 GND. TP5 (LED_A) is drawn
+# on sheet 6 at the LED anode, as on Pico 2 (D-014).
+title: "5 Pico edge, test pads (Pico 2 Fig. 2, §3.1)"
+paper: A4
+sideways_power: true
+parts:
+  J4: {lib: "Connector_Generic:Conn_02x20_Counter_Clockwise", value: "Pico 2 edge (castellated)", fp: "pico-k:RaspberryPi_Pico2_Edge_Castellated_2x20", bom: false, nets: {"1": GP0, "2": GP1, "3": GND, "4": GP2, "5": GP3, "6": GP4, "7": GP5, "8": GND, "9": GP6, "10": GP7, "11": GP8, "12": GP9, "13": GND, "14": GP10, "15": GP11, "16": GP12, "17": GP13, "18": GND, "19": GP14, "20": GP15, "21": GP16, "22": GP17, "23": GND, "24": GP18, "25": GP19, "26": GP20, "27": GP21, "28": GND, "29": GP22, "30": RUN, "31": GP26, "32": GP27, "33": GND, "34": GP28, "35": ADC_VREF, "36": 3V3, "37": 3V3_EN, "38": GND, "39": VSYS, "40": VBUS}}
+  TP1: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": GND}}
+  TP2: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": USB_CONN_DM}}
+  TP3: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": USB_CONN_DP}}
+  TP4: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": SMPS_PS}}
+  TP6: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": BOOTSEL}}
+  TP7: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": DVDD}}
+  TP8: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": SWCLK}}
+  TP9: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": SWDIO}}
+  TP10: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": GND}}
+place:
+  - {ref: J4, at: [101.6, 101.6]}
+  - {ref: TP1, at: [195.58, 45.72], rot: 90, text: left, hide_value: true}
+  - {ref: TP2, at: [195.58, 58.42], rot: 90, text: left, hide_value: true}
+  - {ref: TP3, at: [195.58, 71.12], rot: 90, text: left, hide_value: true}
+  - {ref: TP4, at: [195.58, 83.82], rot: 90, text: left, hide_value: true}
+  - {ref: TP6, at: [195.58, 109.22], rot: 90, text: left, hide_value: true}
+  - {ref: TP7, at: [195.58, 121.92], rot: 90, text: left, hide_value: true}
+  - {ref: TP8, at: [195.58, 134.62], rot: 90, text: left, hide_value: true}
+  - {ref: TP9, at: [195.58, 147.32], rot: 90, text: left, hide_value: true}
+  - {ref: TP10, at: [195.58, 160.02], rot: 90, text: left, hide_value: true}

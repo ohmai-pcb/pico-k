@@ -1,0 +1,46 @@
+# pico-k footprint register (phase 8). One row per footprint; every land pattern is checked against the cited
+# datasheet figure. `ohmai check footprints` checks pin<->pad numbers against the schematic symbols; the symbol
+# maps (parts/symbol-maps/*.yaml) give the datasheet pad for each symbol pin. ESTIMATE = derived, not printed.
+# Pages are the printed page numbers.
+footprints:
+  - {refs: [U1], footprint: "Package_DFN_QFN:QFN-60-1EP_7x7mm_P0.4mm_EP3.4x3.4mm_ThermalVias",
+     source: "RP2350 datasheet Fig. 143 p.1327 (D/E 7 BSC, D2/E2 3.40, b 0.18, e 0.40, L 0.40), Fig. 144 p.1327",
+     pins: "1-60 + EP 61 = GND (KiCad RP2350A symbol, constraints/RP2350A.yaml)",
+     note: "KiCad 9.0.9.1 library footprint, dimensions match Fig. 143; thermal vias in the EP for the GND return (RP2350 p.454: low-impedance path back to the QFN GND pad)"}
+  - {refs: [U2], footprint: "Package_SON:Winbond_USON-8-1EP_3x2mm_P0.5mm_EP0.2x1.6mm",
+     source: "W25Q32RV Rev E §10.3 8-pad XSON 2x3x0.4 p.77 (D 2.00, E 3.00, D2 1.60, E2 0.20, b 0.25, e 0.50, L 0.45)",
+     pins: "1-8 per §3.2 Fig. 1b p.5; EP (9) to GND (symbol map W25Q32RVXHJQ.yaml; p.77 note: EP may be GND, no exposed vias under it)"}
+  - {refs: [U3], footprint: "Package_SON:Texas_DRC0010J_ThermalVias",
+     source: "TPS63001 SLVS520C package drawing DRC (S-PVSON-N10) 4206987-2/P Land Pattern Data (pdf p.24): 10x 0.28 x 0.85, pitch 0.5, EP 1.65 x 2.40, 5x via 0.3",
+     pins: "1-10 + 11 PowerPAD = PGND (SLVS520C Pin Functions p.3)"}
+  - {refs: [U4], footprint: "Package_TO_SOT_SMD:SOT-23-6", source: "USBLC6-2SC6 Fig. 22 SOT23-6L footprint (ST datasheet)",
+     pins: "1 I/O1, 2 GND, 3 I/O2, 4 I/O2, 5 VBUS, 6 I/O1 (USBLC6 pinout)"}
+  - {refs: [U5], footprint: "Package_SO:TSSOP-14_4.4x5mm_P0.65mm", source: "MAX31856 19-7534 Rev 0 package U14+1 (TSSOP-14 4.4 x 5.0, 0.65 pitch); land pattern per Maxim package page (p.29 note)",
+     pins: "1-14 (MAX31856 Pin Description p.10)"}
+  - {refs: [L1], footprint: "pico-k:L_MPS_MPL-AT2512", source: "MPS MPL-AT2512-3R3 Rev 1.2 p.3 RECOMMENDED LAND PATTERN (2.90 overall, 2.30, 0.50 gap)",
+     pins: "1 = dot = start of winding on VREG_LX (symbol map MPL-AT2512-3R3.yaml)"}
+  - {refs: [L2], footprint: "pico-k:L_Murata_DFE201612P", source: "Murata DFE201612P spec JE243A-0033-01 p.5 Recommended PCB pattern (pads 0.8 x 1.8, gap 0.8, 2.4 overall); body p.1; keepout under the coil per spec notes (D-030; was Sunlord SWPA3015S)"}
+  - {refs: [Q1], footprint: "Package_TO_SOT_SMD:SOT-523", source: "DMG1012T Suggested Pad Layout SOT523 p.6 (C 1.29, X 0.40, X1 0.70, Y 0.51, Y1 1.80)",
+     pins: "1 G, 2 S, 3 D (DMG1012T p.1)"}
+  - {refs: [J1], footprint: "pico-k:USB_C_Receptacle_ShouHan_TYPE-C-16PIN-2MD-073",
+     source: "SHOU HAN TYPE-C 16PIN 2MD(073) drawing p.1 RECOMMENDED PCB LAYOUT (TOP VIEW): 0.30 pads at 0.5 pitch, 0.60 pads at spans 4.80/6.40, pegs 0.65 at 5.78, slots 0.60 at 8.64 (rear 2.10/1.70, front 1.80/1.40)",
+     pins: "A1..B12, S1 per PIN ASSIGNMENTS p.1 (symbol map TYPE-C-16PIN-2MD-073.yaml)",
+     note: "Y positions and the 1.45 pad length from KiCad HRO TYPE-C-31-M-12 (ESTIMATE): verify against the p.1 drawing on the 1:1 print"}
+  - {refs: [J2], footprint: "pico-k:Omega_PCC-SMD_Clip_R", source: "Omega PCC-SMD spec sheet p.2 BARE PCB and SOLDER PASTE PROFILE (see hardware/gen/pcb/footprints.py for every number)",
+     pins: "1 = contact (pad + tab + plated side slot); J2 = + (T+), right clip seen from the top with the edge toward the viewer (D-009)"}
+  - {refs: [J3], footprint: "pico-k:Omega_PCC-SMD_Clip_L", source: "Omega PCC-SMD spec sheet p.2 (mirror of J2 about the pair centreline, as drawn)", pins: "1 = contact; J3 = - (T-)"}
+  - {refs: [J4], footprint: "pico-k:RaspberryPi_Pico2_Edge_Castellated_2x20",
+     source: "Pico 2 datasheet Fig. 3 p.7 (21 x 51, rows 17.78, x 1.61/19.39, pitch 2.54, ends (51-48.26)/2 = 1.37, hole 1, pad 1.6); pin order Fig. 2 p.8; carrier SMT footprint Fig. 5 p.10",
+     pins: "1-40 counter-clockwise from the USB end, top view (Conn_02x20_Counter_Clockwise)",
+     note: "D-017 (P8-2): 36 castellated half-holes; end pins 1/20/21/40 have no half-hole (JLC castellation rules: pad edge to board edge >= 1 mm, hole to board corner >= 3.0 mm, JLC blog 'Castellated PCBs: Introduction and Design Requirements', updated 2026-09-08), only the PTH plus top/bottom pads to 0.2 mm from the long edge; pin positions and the 51 x 21 outline unchanged"}
+  - {refs: [TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9, TP10, TP11, TP12], footprint: "pico-k:TestPoint_Pico2_1.5x1.5mm",
+     source: "Pico 2 datasheet Fig. 5 p.10 (test points 1.5 x 1.5, 0.3 corner radius); bottom side (D-002)"}
+  - {refs: [Y1], footprint: "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", source: "ABM8-272-T3 p.2 pad layout (pads 1/3 resonator, 2/4 GND, D-007)",
+     note: "orientation by the pad layout, not the chamfer (ABM8 p.2: chamfer 'could be located on pin #1, 3, or 4')"}
+  - {refs: [SW1], footprint: "Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A", source: "TS-1187A-B-A-B drawing p.1 (A-B and C-D internally joined)",
+     note: "symbol pin 1 -> pads A+B, 2 -> C+D (symbol map); confirmed in the footprint: pads 1 and 2 each occur twice on one side"}
+  - {refs: [D1], footprint: "Diode_SMD:D_SOD-123F", source: "MBR120VLSFT1G SOD-123FL package (onsemi)"}
+  - {refs: [D2], footprint: "LED_SMD:LED_0805_2012Metric", source: "KT-0805G p.2 Package Profile & Soldering PAD Suggested",
+     note: "KiCad pad 1 = cathode = manufacturer pad 2 (symbol map KT-0805G.yaml); cathode bar on F.SilkS; CPL rotation by the cathode mark"}
+  - {refs: [JP1, JP2, JP3, JP4, JP5, JP6, NT1], footprint: "Jumper:SolderJumper-2_* / NetTie:NetTie-2_SMD_Pad0.5mm", source: "KiCad 9.0.9.1 library (no part, copper only)"}
+  - {refs: ["R*", "C*"], footprint: "0402 / 0603 (4.7 and 10 uF) / 0805 (C20, D-030)", source: "KiCad R_0402_1005Metric, C_0402_1005Metric, C_0603_1608Metric, C_0805_2012Metric (IPC-7351 nominal); sizes per BOM (D-007, D-009)"}

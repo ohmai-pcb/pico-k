@@ -1,0 +1,179 @@
+board: pico-k
+mcu: RP2350A
+cite: expected_nets.csv; Pico 2 datasheet Fig. 2 p.8; docs/architecture.md A2-2
+signals:
+- name: VBUS
+  type: power
+  pin: J4.40 / J1.A4,B4,A9,B9
+  role: USB 5 V input (R-06)
+- name: VSYS
+  type: power
+  pin: J4.39 / U3.5
+  role: System input supply behind D1 Schottky
+- name: 3V3
+  type: power
+  pin: J4.36 / U3.1,10
+  role: 3.3 V regulated rail from TPS63001 U3
+- name: DVDD
+  type: power
+  pin: TP7.1 / U1.6,23,39
+  role: 1.1 V RP2350A core rail
+- name: GND
+  type: power
+  pin: J4.3,8,13,18,23,28,33,38 / TP1.1
+  role: Board ground
+- name: ADC_VREF
+  type: analog_ref
+  pin: J4.35
+  role: Filtered ADC reference from 3V3 via R20/R21
+- name: 3V3_EN
+  type: control
+  pin: J4.37 / U3.6
+  role: TPS63001 enable (100k pull-up R15 to VSYS)
+- name: RUN
+  type: reset
+  pin: J4.30 / U1.26
+  role: RP2350A active-low hardware reset
+- name: GP23
+  net: SMPS_PS
+  type: gpio
+  pin: U1.35 / TP4.1 / U3.7
+  role: TPS63001 PS/SYNC power-save mode control (SMPS_PS, Pico 2 GP23)
+- name: GP24
+  net: VBUS_SENSE
+  type: gpio
+  pin: U1.36
+  role: USB VBUS sense divider R18/R8 (VBUS_SENSE, Pico 2 GP24)
+- name: GP25
+  net: GP25
+  type: gpio
+  pin: U1.37 / R22.1 / D2 / TP5.1
+  role: User green LED D2 active-high via R22 470 ohm
+- name: GP29
+  net: VSYS_SENSE
+  type: adc
+  pin: U1.43 (ADC3)
+  role: VSYS/3 sense via Q1 DMG1012T-7 + R19 20k / R9 10k divider
+- name: BOOTSEL
+  net: BOOTSEL
+  type: button
+  pin: SW1.1 / TP6.1 / U2.1 (QSPI_SS via R4)
+  role: BOOTSEL button SW1 active-low on QSPI_SS
+- name: GP12
+  net: TC_SDO
+  type: spi_miso
+  pin: U1.16 / J4.16 / JP1 -> U5.11 (SDO)
+  role: SPI1 RX (MISO) from MAX31856 U5 via JP1
+- name: GP13
+  net: TC_CS
+  type: spi_cs
+  pin: U1.17 / J4.17 / JP2 -> U5.9 (CS)
+  role: SPI1 CSN to MAX31856 U5 via JP2 (10k pull-up R7 to 3V3)
+- name: GP14
+  net: TC_SCK
+  type: spi_sck
+  pin: U1.18 / J4.19 / JP3 -> U5.10 (SCLK)
+  role: SPI1 SCK to MAX31856 U5 via JP3
+- name: GP15
+  net: TC_SDI
+  type: spi_mosi
+  pin: U1.19 / J4.20 / JP4 -> U5.12 (SDI)
+  role: SPI1 TX (MOSI) to MAX31856 U5 via JP4
+- name: TC_DRDY
+  net: TC_DRDY
+  type: testpad
+  pin: U5.7 / TP11.1
+  role: MAX31856 data-ready active-low output on TP11 (optional jumper to GP6)
+- name: TC_FAULT
+  net: TC_FAULT
+  type: testpad
+  pin: U5.13 / TP12.1
+  role: MAX31856 fault active-low output on TP12 (optional jumper to GP7)
+- name: GP0
+  type: gpio
+  pin: U1.2 / J4.1
+  role: Edge GPIO0
+- name: GP1
+  type: gpio
+  pin: U1.3 / J4.2
+  role: Edge GPIO1
+- name: GP2
+  type: gpio
+  pin: U1.4 / J4.4
+  role: Edge GPIO2
+- name: GP3
+  type: gpio
+  pin: U1.5 / J4.5
+  role: Edge GPIO3
+- name: GP4
+  type: gpio
+  pin: U1.7 / J4.6
+  role: Edge GPIO4
+- name: GP5
+  type: gpio
+  pin: U1.8 / J4.7
+  role: Edge GPIO5
+- name: GP6
+  type: gpio
+  pin: U1.9 / J4.9
+  role: Edge GPIO6 (also optional DRDY jumper target)
+- name: GP7
+  type: gpio
+  pin: U1.10 / J4.10
+  role: Edge GPIO7 (also optional FAULT jumper target)
+- name: GP8
+  type: gpio
+  pin: U1.12 / J4.11
+  role: Edge GPIO8 (SPI1 RX alt)
+- name: GP9
+  type: gpio
+  pin: U1.13 / J4.12
+  role: Edge GPIO9 (SPI1 CSn alt)
+- name: GP10
+  type: gpio
+  pin: U1.14 / J4.14
+  role: Edge GPIO10 (SPI1 SCK alt)
+- name: GP11
+  type: gpio
+  pin: U1.15 / J4.15
+  role: Edge GPIO11 (SPI1 TX alt)
+- name: GP16
+  type: gpio
+  pin: U1.27 / J4.21
+  role: Edge GPIO16
+- name: GP17
+  type: gpio
+  pin: U1.28 / J4.22
+  role: Edge GPIO17
+- name: GP18
+  type: gpio
+  pin: U1.29 / J4.24
+  role: Edge GPIO18
+- name: GP19
+  type: gpio
+  pin: U1.31 / J4.25
+  role: Edge GPIO19
+- name: GP20
+  type: gpio
+  pin: U1.32 / J4.26
+  role: Edge GPIO20
+- name: GP21
+  type: gpio
+  pin: U1.33 / J4.27
+  role: Edge GPIO21
+- name: GP22
+  type: gpio
+  pin: U1.34 / J4.29
+  role: Edge GPIO22
+- name: GP26
+  type: adc_gpio
+  pin: U1.40 / J4.31
+  role: Edge GPIO26 / ADC0
+- name: GP27
+  type: adc_gpio
+  pin: U1.41 / J4.32
+  role: Edge GPIO27 / ADC1
+- name: GP28
+  type: adc_gpio
+  pin: U1.42 / J4.34
+  role: Edge GPIO28 / ADC2

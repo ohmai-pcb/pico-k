@@ -1,0 +1,37 @@
+# KT-0805G (D2, status LED on GPIO25) constraints (DRAFT, agent-generated, not yet reviewed).
+# Hubei KENTO 0805 green, Specification for approval rev A.0 (2018-12-06). Pages = "第 n 页 共 11 页".
+# Alternate KT-0603G (datasheets/KT-0603G.pdf) - separate footprint; check its own VF bins before use.
+schema: ohmai-constraints/v1
+part: KT-0805G
+mpn: KT-0805G
+manufacturer: Hubei KENTO Elec
+package: "0805 (2.0 x 1.25 x 0.85 mm)"
+match: {value: LED green, mpn: KT-0805G}
+datasheet:
+  file: datasheets/KT-0805G.pdf
+  revision: "Specification for approval, Revision A.0, issue date 2018-12-06"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+abs_max:
+  - {param: Power dissipation, max: 100, unit: mW, cite: {page: 3, where: "4. Absolute Maximum Ratings (Ta 25 degC)"}}
+  - {param: DC forward current, max: 30, unit: mA, cite: {page: 3, where: "4."}}
+  - {param: "Peak forward current (1/10 duty, 0.1 ms)", max: 60, unit: mA, cite: {page: 3, where: "4."}}
+  - {param: Reverse voltage, max: 5, unit: V, cite: {page: 3, where: "4."}}
+  - {param: Operating temperature, min: -40, max: 85, unit: degC, cite: {page: 3, where: "4."}}
+  - {param: Storage temperature, min: -40, max: 85, unit: degC, cite: {page: 3, where: "4."}}
+recommended:
+  - {param: Forward voltage at IF 5 mA, min: 2.6, max: 3.1, unit: V, cite: {page: 3, where: "5. Electrical Optical Characteristics"}, note: "bins VM..VQ 2.6-3.1 V, tolerance ±0.05 V (p.4 §6.2)"}
+  - {param: Luminous intensity at IF 5 mA, min: 175, max: 430, unit: mcd, cite: {page: 3, where: "5."}}
+  - {param: Dominant wavelength, min: 513, max: 528, unit: nm, cite: {page: 3, where: "5."}}
+layout_notes:
+  - {text: "Use the suggested soldering pads (1.41 x 1.00 mm, 0.90 mm gap)", cite: {page: 2, where: "2. Package Profile & Soldering PAD Suggested"}}
+  - {text: "Always drive through a current-limiting resistor", cite: {page: 10, where: "11. precautions (current-limiting resistance)"}}
+open_questions:
+  - "LED resistor (resolves the phase-4 ESTIMATE): R22 = 470 ohm as Pico 2 R3 470R 1 % + D2 Green driven from GPIO25 (Pico 2 datasheet p.20 Fig. 11; Pico 2 W R3 470R is driven by the CYW43). From GPIO25 at 3.3 V: ESTIMATE I = (3.3 V - VF) / 470 ohm = 0.3 mA (VF 3.15 V, worst bin) to 1.5 mA (VF 2.6 V), ignoring the GPIO output drop; VF is lower below 5 mA, so the real current is somewhat higher (still far below 12 mA). KENTO specifies the intensity only at 5 mA, so brightness at 0.3-1.5 mA is not given. Pico 2 W drives its LED from the CYW43 (WL_GPIO0), not from RP2350. RESOLVED D-007 (P5-3, owner 2026-10-15): keep 470 ohm (dim but safe, 1.5 mA << 12 mA max GPIO drive)."
+pins:
+  - {number: "1", name: A, direction: passive, cite: {page: 2, where: "2. Package Profile (symbol: 1 = +)"}, note: "anode <- R22 470 ohm <- RP2350 GPIO25",
+     required_external: [{kind: resistor, nominal: 470, unit: ohm, cite: {page: 20, where: "Fig. 11, R3 470R / D2 Green on GPIO25", doc: "pico-2-datasheet.pdf"}, note: "series current limit, kept by owner D-007 (P5-3)"}]}
+  - {number: "2", name: K, direction: passive, cite: {page: 2, where: "2. Package Profile (symbol: 2 = -, green corner mark)"}, note: "cathode -> GND"}

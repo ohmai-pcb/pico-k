@@ -1,0 +1,105 @@
+# expected_nets.csv: the connectivity `ohmai check netlist` enforces. Written in phase 7 from the
+# architecture and parts/constraints before drawing, then kept in sync (owner approves changes in the PR).
+# Format: net,ref.pin,ref.pin,...
+#   ref.pin  exact pin (U1.20)     ref.*  any pin of a non-polar part (C3.*)
+#   ...      open row: other nodes allowed on this net
+#   NC       row name: listed pins must be unconnected
+#   TODO     in any cell: row is skipped and counted (fill in, then remove TODO)
+# Cite the pin source per part in a comment, e.g.  # U1 TPS63001: datasheet Rev 1.0 p.4 PIN FUNCTIONS
+#
+# Written 2026-10-15 (phase 7) from docs/architecture.md, parts/constraints/*.yaml and bom/bom.csv refs.
+# Pin sources per block:
+#   power_usb.kicad_sch: J1 USB-C: constraints/TYPE-C-16PIN-2MD-073.yaml (drawing p.1; Type-C R2.0 Table 3-5 p.69); U4 USBLC6-2SC6 datasheet Fig. 1 p.1 / Fig. 14 p.8; D1 MBR120VLSFT1G p.1 (1 = K); CC Rd: architecture.md §USB-C
+#   regulator.kicad_sch: U3 TPS63001 SLVS520C pin functions p.3, typical application p.1, Table 1 List of Components p.10 (constraints/TPS63001DRCR.yaml); 3V3_EN/PS: Pico 2 datasheet §5.4 p.15
+#   mcu_core.kicad_sch: U1 RP2350A: RP2350 datasheet Fig. 2 p.15 + Table 1432 (constraints/RP2350A.yaml); VREG: §6.3 p.451-455; crystal: HDG §4 Fig. 10 p.13 (same circuit in Fig. 15 p.20); U2 W25Q32RV §3.3 Pin Description p.5 (constraints/W25Q32RVXHJQ.yaml); USB 27 R: HDG p.15
+#   led_boot_adc.kicad_sch: VBUS sense / VSYS/3 / ADC_VREF: Pico 2 datasheet §5.3 p.14, Pico 2 W schematic RP-008306 p.1 (Q1/R5/R6, R7/R9/C13); LED: Pico 2 Fig. 11 p.20, TP5 on LED_A per Pico 2 §3.1 p.9 (D-014); BOOTSEL: HDG Fig. 8 p.10
+#   thermocouple.kicad_sch: U5 MAX31856 pin description p.10, Fig. 8 p.27 (constraints/MAX31856MUD+T.yaml); SPI1 GP12-15 + jumpers: architecture.md A2-2
+#   edge.kicad_sch: J4 Pico 2 pinout: Pico 2 datasheet Fig. 2 p.8 (pin 33 AGND tied to GND: Pico 2 datasheet §3.1 p.9 "If the ADC is not used or ADC performance is not critical, this pin can be connected to digital ground"); TP1-TP4, TP6, TP7: Pico 2 datasheet §3.1 p.9 (TP5 on sheet 6, LED anode, D-014); TP8-10 SWD (D-002)
+# Every row is closed (no "..."): any extra node on a net is an error.
+# J2/J3 Omega PCC-SMD: Connector_Generic:Conn_01x01 per clip, map parts/symbol-maps/PCC-SMD.yaml (D-012 P7-1).
+# VREG: RP2350 Fig. 22 p.453 (C_IN/C_OUT returns on VREG_PGND, one-point join to GND via NT1, p.454); VREG_FB: Fig. 21 p.452 external-1V1 option, JP5 bridged / JP6 open (D-012 P7-6).
+net,nodes
+# --- 1 power / USB-C (power_usb.kicad_sch)
+CC1,J1.A5,R10.1
+CC2,J1.B5,R11.1
+GND,C1.2,C2.2,C3.2,C4.2,C5.2,C6.2,C7.2,C8.2,C9.2,C10.2,C11.2,C12.2,C13.2,C15.2,C18.2,C19.2,C20.2,C21.2,C22.2,C23.2,C24.2,C25.2,C26.2,C27.2,C28.2,C31.2,C32.2,D2.1,J1.A1,J1.A12,J1.B1,J1.B12,J1.S1,J4.13,J4.18,J4.23,J4.28,J4.3,J4.33,J4.38,J4.8,JP6.2,NT1.2,R8.2,R9.2,R10.2,R11.2,R16.2,SW1.2,TP1.1,TP10.1,U1.61,U2.4,U2.9,U3.11,U3.3,U3.9,U4.2,U5.1,U5.14,Y1.2,Y1.4
+USB_CONN_DM,J1.A7,J1.B7,R2.1,TP2.1,U4.3,U4.4
+USB_CONN_DP,J1.A6,J1.B6,R1.1,TP3.1,U4.1,U4.6
+VBUS,C19.1,D1.2,J1.A4,J1.A9,J1.B4,J1.B9,J4.40,R18.1,U4.5
+VSYS,C20.1,D1.1,J4.39,R14.1,R15.2,R19.1,U3.5
+# --- 2 RP2350A core, flash, crystal (mcu_core.kicad_sch)
+3V3,C1.1,C2.1,C3.1,C4.1,C5.1,C6.1,C7.1,C11.1,C12.1,C13.1,C16.1,C21.1,C22.1,C29.1,C31.1,J4.36,Q1.1,R5.1,R6.2,R7.2,R20.1,R23.2,R24.2,U1.1,U1.11,U1.20,U1.30,U1.38,U1.45,U1.49,U1.53,U1.54,U2.8,U3.1,U3.10,U5.5,U5.8
+ADC_AVDD,C27.1,C32.1,R21.2,U1.44
+BOOTSEL,R4.2,SW1.1,TP6.1
+DVDD,C8.1,C9.1,C10.1,C17.1,C28.1,JP5.2,L1.2,TP7.1,U1.23,U1.39,U1.6
+VREG_FB,JP5.1,JP6.1,U1.50
+GP0,J4.1,U1.2
+GP1,J4.2,U1.3
+GP10,J4.14,U1.14
+GP11,J4.15,U1.15
+GP12,J4.16,JP1.1,U1.16
+GP13,J4.17,JP2.1,U1.17
+GP14,J4.19,JP3.1,U1.18
+GP15,J4.20,JP4.1,U1.19
+GP16,J4.21,U1.27
+GP17,J4.22,U1.28
+GP18,J4.24,U1.29
+GP19,J4.25,U1.31
+GP2,J4.4,U1.4
+GP20,J4.26,U1.32
+GP21,J4.27,U1.33
+GP22,J4.29,U1.34
+GP25,R22.1,U1.37
+GP26,J4.31,U1.40
+GP27,J4.32,U1.41
+GP28,J4.34,U1.42
+GP3,J4.5,U1.5
+GP4,J4.6,U1.7
+GP5,J4.7,U1.8
+GP6,J4.9,U1.9
+GP7,J4.10,U1.10
+GP8,J4.11,U1.12
+GP9,J4.12,U1.13
+QSPI_SCLK,U1.56,U2.6
+QSPI_SD0,U1.57,U2.5
+QSPI_SD1,U1.59,U2.2
+QSPI_SD2,U1.58,U2.3
+QSPI_SD3,U1.55,U2.7
+QSPI_SS,R4.1,R6.1,U1.60,U2.1
+RUN,J4.30,U1.26
+SMPS_PS,R16.1,TP4.1,U1.35,U3.7
+SWCLK,TP8.1,U1.24
+SWDIO,TP9.1,U1.25
+USB_DM,R2.2,U1.51
+USB_DP,R1.2,U1.52
+VBUS_SENSE,R8.1,R18.2,U1.36
+VREG_AVDD,C18.1,R5.2,U1.46
+VREG_LX,L1.1,U1.48
+VREG_PGND,C16.2,C17.2,C29.2,NT1.1,U1.47
+VSYS_SENSE,Q1.2,R9.1,U1.43
+XIN,C23.1,U1.21,Y1.1
+XOUT,R3.1,U1.22
+XTAL_OUT,C24.1,R3.2,Y1.3
+# --- 3 3V3 regulator (TPS63001) (regulator.kicad_sch)
+3V3_EN,J4.37,R15.1,U3.6
+REG_L1,L2.1,U3.4
+REG_L2,L2.2,U3.2
+VINA,C15.1,R14.2,U3.8
+# --- 4 thermocouple front end (thermocouple.kicad_sch)
+TC_CS,JP2.2,R7.1,U5.9
+TC_DRDY,R23.1,TP11.1,U5.7
+TC_FAULT,R24.1,TP12.1,U5.13
+TC_IN_N,C14.2,C26.1,R13.2,U5.3
+TC_IN_P,C14.1,C25.1,R12.2,U5.4
+TC_N,J3.1,R13.1,U5.2
+TC_P,J2.1,R12.1
+TC_SCK,JP3.2,U5.10
+TC_SDI,JP4.2,U5.12
+TC_SDO,JP1.2,U5.11
+# --- 5 Pico edge, castellations, test pads (edge.kicad_sch)
+ADC_VREF,J4.35,R20.2,R21.1
+# --- 6 LED, BOOTSEL, ADC sense (led_boot_adc.kicad_sch)
+LED_A,D2.2,R22.2,TP5.1
+VSYS_DIV,Q1.3,R19.2
+# Pins that must stay unconnected: J1 SBU1/SBU2 (architecture.md §USB-C), U5 DNC (MAX31856 p.10)
+NC,J1.A8,J1.B8,U5.6

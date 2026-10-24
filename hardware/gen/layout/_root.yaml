@@ -1,0 +1,12 @@
+# pico-k hierarchy for `ohmai schematic build` (OhmAI layout format, see hardware/gen/layout/README.md)
+title: "pico-k: root (hierarchy)"
+paper: A3
+sheets: [power_usb, mcu_core, regulator, thermocouple, edge, led_boot_adc]
+# Nets drawn as power symbols (official power: symbols, Value = net name). Everything else that crosses
+# blocks becomes a hierarchical port; nothing inside a block uses a local label.
+power:
+  GND: "power:GND"
+  3V3: "power:+3V3"
+  VBUS: "power:VBUS"
+  VSYS: "power:VCC"
+  DVDD: "power:+1V1"

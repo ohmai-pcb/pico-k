@@ -1,0 +1,5 @@
+# Symbol map: KiCad Device:L -> MPL-AT2512-3R3 (D-012 P7-4). Datasheet p.3: pin 1 = dot (start of winding).
+symbol: "Device:L"
+pins:
+  "1": {datasheet: "1", symbol_name: "1", cite: {page: 3}}
+  "2": {datasheet: "2", symbol_name: "2", cite: {page: 3}}

@@ -1,0 +1,52 @@
+# W25Q32RVXHJQ constraints (DRAFT, agent-generated, not yet reviewed). Pages = printed page numbers ("- N -" footer).
+# Alternate GD25Q32EEIGR (GigaDevice, Rev 1.3 May 2022, datasheets/GD25Q32EEIGR.pdf): same 8-pad pin map,
+# differences in the notes and open_questions. HDG = Hardware design with RP2350 (build 2026-08-20).
+schema: ohmai-constraints/v1
+part: W25Q32RVXHJQ
+mpn: W25Q32RVXHJQ
+manufacturer: Winbond
+package: XSON-8 2x3x0.4 mm (package code XH), center metal pad
+match: {value: W25Q32RVXHJQ, mpn: W25Q32RVXHJQ}
+datasheet:
+  file: datasheets/W25Q32RVXHJQ.pdf
+  revision: "Revision E, November 13, 2025"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+abs_max:
+  - {param: VCC, min: -0.6, max: 4.6, unit: V, cite: {page: 67, where: "§9.1 Absolute Maximum Ratings"}}
+  - {param: Voltage applied to any pin, min: -0.6, max: VCC+0.4, unit: V, cite: {page: 67, where: "§9.1"}}
+  - {param: Transient voltage on any pin (<20 ns), min: -2.0, max: VCC+2.0, unit: V, cite: {page: 67, where: "§9.1"}}
+  - {param: Storage temperature, min: -65, max: 150, unit: degC, cite: {page: 67, where: "§9.1"}}
+  - {param: ESD HBM, min: -2000, max: 2000, unit: V, cite: {page: 67, where: "§9.1"}}
+recommended:
+  - {param: VCC, min: 2.7, max: 3.6, unit: V, cite: {page: 67, where: "§9.2 Operating Ranges"}, note: "read VCC within ±10 % of the programming voltage"}
+  - {param: Ambient temperature (Industrial Plus), min: -40, max: 105, unit: degC, cite: {page: 67, where: "§9.2"}}
+  - {param: "GD25Q32E alternate: VCC", min: 2.7, max: 3.6, unit: V, cite: {page: 39, where: "§8 DC characteristics header", doc: "GD25Q32EEIGR.pdf Rev 1.3"}}
+  - {param: "GD25Q32E alternate: VCC abs max", min: -0.6, max: 4.2, unit: V, cite: {page: 37, where: "§8.3 Absolute Maximum Ratings", doc: "GD25Q32EEIGR.pdf Rev 1.3"}, note: "lower than W25Q32RV (4.6 V); irrelevant at 3.3 V"}
+evb_reference: {document: "Hardware design with RP2350, Minimal Design Example (U3 W25Q128JVS, C2 100 nF) and Pico 2 W schematic RP-008306 (U3 W25Q32RVXHJQ)", cite: {page: 20, where: "Appendix A Fig. 15", doc: "hardware-design-with-rp2350.pdf"}}
+layout_notes:
+  - {text: "Center metal pad is not connected internally: leave floating or connect to GND; avoid exposed PCB vias under the pad", cite: {page: 77, where: "§10.3 XSON 2x3 note"}}
+  - {text: "Wire QSPI directly to RP2350 with short connections; place the CS pull-up (DNF) and the 1 kOhm BOOTSEL resistor close to the flash", cite: {page: 10, where: "§3.1", doc: "hardware-design-with-rp2350.pdf"}}
+  - {text: "GD25Q32E USON8 3x2: the exposed pad is floating; check its land pattern against the XSON 2x3 footprint before using the alternate", cite: {page: 54, where: "§10.3 note 2", doc: "GD25Q32EEIGR.pdf Rev 1.3"}}
+open_questions:
+  - "No decoupling value in the Winbond datasheet. 100 nF follows the RPi minimal design (C2, HDG Fig. 15 p.20) and Pico 2 W; confirm."
+  - "CS pull-up: Winbond §4.1 p.6 says /CS must track VCC at power-up and 'a pull-up resistor can be used'; GD25Q32E Table 2 note 1 (p.6) says CS# must never float after power-on. RP2350 QSPI_SS has an internal pull-up at reset, but RPi (HDG p.10) says another flash may need the 10 kOhm. RESOLVED (D-006, bom.csv U2/R6): R6 DNF with the W25Q32RV, fitted (10 kOhm) when the GD25Q32E is used."
+  - "QE / quad mode (firmware + bring-up item, Reviewer-A F36): W25Q32RV ordering option JQ ships with QE = 1 (§7.1.10 p.15), so IO2/IO3 are data pins out of the box. GD25Q32E ships with the status register at 00H except DRV0 (§8.2 Initial Delivery State, PDF p.37), i.e. QE = 0 (QE bit default 0, p.13): WP#/HOLD# are active until QE is set (p.9). The RP2350 boot ROM scans flash with 03h serial reads only (RP2350 §5.2 Processor-controlled boot sequence, printed p.369), which work with QE = 0 if WP#/HOLD# are not held low; quad XIP is set up later by the program (SDK flash/boot2 code), which must set QE on the GD part. With the GD alternate: confirm the firmware sets QE (or program QE once at production) and check QSPI_SD2/SD3 idle high during serial boot. Not verified on hardware."
+  - "Center pad: tie to GND or leave floating? Both are allowed (p.77). Pico 2 W shows pin 9 PAD on U3; the net is not readable in the text extract. Decide in the schematic; pin 9 is entered as passive (no nc flag) so either choice passes the checks."
+pins:
+  - {number: "1", name: /CS, direction: input, cite: {page: 5, where: "§3.3 Pin Description"}, abs_max: {min: -0.6, max: VCC+0.4, unit: V, cite: {page: 67}},
+     note: "to RP2350 QSPI_SS (pin 60). GD25Q32E: CS#",
+     required_external: [{kind: pullup, to: 3V3, nominal: 10, unit: kohm, cite: {page: 10, where: "§3.1 (R1, DNF)", doc: "hardware-design-with-rp2350.pdf"}, note: "footprint required, fitted only if needed (see open questions); pico-k R6 DNF"}]}
+  - {number: "2", name: DO (IO1), direction: io, cite: {page: 5, where: "§3.3"}, abs_max: {min: -0.6, max: VCC+0.4, unit: V, cite: {page: 67}}, note: "to QSPI_SD1 (pin 59). GD25Q32E: SO (IO1)"}
+  - {number: "3", name: /WP (IO2), direction: io, cite: {page: 5, where: "§3.3"}, abs_max: {min: -0.6, max: VCC+0.4, unit: V, cite: {page: 67}}, note: "to QSPI_SD2 (pin 58). GD25Q32E: WP# (IO2)"}
+  - {number: "4", name: VSS, direction: ground, cite: {page: 5, where: "§3.3"}}
+  - {number: "5", name: DI (IO0), direction: io, cite: {page: 5, where: "§3.3"}, abs_max: {min: -0.6, max: VCC+0.4, unit: V, cite: {page: 67}}, note: "to QSPI_SD0 (pin 57). GD25Q32E: SI (IO0)"}
+  - {number: "6", name: CLK, direction: input, cite: {page: 5, where: "§3.3"}, abs_max: {min: -0.6, max: VCC+0.4, unit: V, cite: {page: 67}}, note: "to QSPI_SCLK (pin 56). GD25Q32E: SCLK"}
+  - {number: "7", name: /HOLD or /RESET (IO3), direction: io, cite: {page: 5, where: "§3.3"}, abs_max: {min: -0.6, max: VCC+0.4, unit: V, cite: {page: 67}}, note: "to QSPI_SD3 (pin 55). GD25Q32E: HOLD# (IO3), no /RESET option"}
+  - {number: "8", name: VCC, direction: supply_in, cite: {page: 5, where: "§3.3"}, abs_max: {min: -0.6, max: 4.6, unit: V, cite: {page: 67}},
+     note: "3V3 net (2.7-3.6 V)",
+     required_external: [{kind: capacitor, to: GND, nominal: 100, unit: nF, cite: {page: 20, where: "Appendix A Fig. 15 (C2)", doc: "hardware-design-with-rp2350.pdf"}, note: "close to pin 8; value from the RPi reference, not from the Winbond datasheet"}]}
+  - {number: "9", name: EP, direction: passive, cite: {page: 77, where: "§10.3 note"}, note: "center metal pad, not connected internally; may be left floating or tied to GND (p.77), choice open. Was nc: true, which the schema defines as must-stay-unconnected (Reviewer-A F35). Pad number 9 from Pico 2 W U3 symbol"}

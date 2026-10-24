@@ -1,0 +1,107 @@
+# Block 2: RP2350A core. References (D-012, Reviewer-A F12): RP2350 datasheet §6.3 Fig. 22 p.453 (core
+# regulator as drawn: C_IN at VREG_VIN, L1 on VREG_LX, C_OUT at the L1 output, VREG_FB from C_OUT, all
+# returns on VREG_PGND joined to GND at one point, p.454) plus the Fig. 21 p.452 external-1V1 jumpers
+# JP5 (bridged, VREG_FB-DVDD) / JP6 (open, VREG_FB-GND) (P7-6); Hardware design with RP2350: crystal §4
+# Fig. 10 p.13 (same circuit in the minimal design Fig. 15 p.20), per-pin decoupling, VREG_AVDD RC
+# (R5/C18), QSPI flash wired straight to the QSPI pins, BOOTSEL via 1k on QSPI_SS, 27R USB series.
+# The KiCad RP2350A symbol has VREG_PGND (47) on the bottom edge and VREG_VIN/LX/FB on the top edge, so
+# the C_IN / C_OUT / PGND loop is drawn wired at pin 47 (3V3 and DVDD reach it by their power symbols)
+# and L1 + the jumpers stay at the top pins.
+title: "2 RP2350A core (RP2350 Fig. 22 + 21, HDG Fig. 10)"
+paper: A3
+parts:
+  U1: {lib: "MCU_RaspberryPi:RP2350A", value: RP2350A, fp: "Package_DFN_QFN:QFN-60-1EP_7x7mm_P0.4mm_EP3.4x3.4mm_ThermalVias", mpn: RP2350A, nets: {"2": GP0, "3": GP1, "4": GP2, "5": GP3, "7": GP4, "8": GP5, "9": GP6, "10": GP7, "12": GP8, "13": GP9, "14": GP10, "15": GP11, "16": GP12, "17": GP13, "18": GP14, "19": GP15, "27": GP16, "28": GP17, "29": GP18, "31": GP19, "32": GP20, "33": GP21, "34": GP22, "35": SMPS_PS, "36": VBUS_SENSE, "37": GP25, "40": GP26, "41": GP27, "42": GP28, "43": VSYS_SENSE, "1": 3V3, "11": 3V3, "20": 3V3, "30": 3V3, "38": 3V3, "45": 3V3, "49": 3V3, "53": 3V3, "54": 3V3, "6": DVDD, "23": DVDD, "39": DVDD, "50": VREG_FB, "21": XIN, "22": XOUT, "24": SWCLK, "25": SWDIO, "26": RUN, "44": ADC_AVDD, "46": VREG_AVDD, "47": VREG_PGND, "48": VREG_LX, "51": USB_DM, "52": USB_DP, "55": QSPI_SD3, "56": QSPI_SCLK, "57": QSPI_SD0, "58": QSPI_SD2, "59": QSPI_SD1, "60": QSPI_SS, "61": GND}}
+  C1: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C2: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C3: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C4: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C5: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C6: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C7: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C8: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": DVDD, "2": GND}}
+  C9: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": DVDD, "2": GND}}
+  C10: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": DVDD, "2": GND}}
+  C16: {lib: "Device:C", value: "4.7u", mpn: CL10A475KO8NNNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": 3V3, "2": VREG_PGND}}
+  C29: {lib: "Device:C", value: "4.7u", mpn: CL10A475KO8NNNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": 3V3, "2": VREG_PGND}}
+  C17: {lib: "Device:C", value: "4.7u", mpn: CL10A475KO8NNNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": DVDD, "2": VREG_PGND}}
+  C28: {lib: "Device:C", value: "4.7u", mpn: CL10A475KO8NNNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": DVDD, "2": GND}}
+  L1: {lib: "Device:L", value: "3.3uH", fp: "pico-k:L_MPS_MPL-AT2512", mpn: MPL-AT2512-3R3, nets: {"1": VREG_LX, "2": DVDD}}
+  R5: {lib: "Device:R", value: "33", mpn: "0402WGF330JTCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": 3V3, "2": VREG_AVDD}}
+  C18: {lib: "Device:C", value: "4.7u", mpn: TDK105CBJ475MV-F, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": VREG_AVDD, "2": GND}}
+  NT1: {lib: "Device:NetTie_2", value: NetTie_2, fp: "NetTie:NetTie-2_SMD_Pad0.5mm", bom: false, nets: {"1": VREG_PGND, "2": GND}}
+  Y1: {lib: "Device:Crystal_GND24", value: "12MHz", mpn: ABM8-272-T3, fp: "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", nets: {"1": XIN, "3": XTAL_OUT, "2": GND, "4": GND}}
+  R3: {lib: "Device:R", value: "1k", mpn: "0402WGF1001TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": XOUT, "2": XTAL_OUT}}
+  C23: {lib: "Device:C", value: "15p", mpn: "0402CG150J500NT", fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": XIN, "2": GND}}
+  C24: {lib: "Device:C", value: "15p", mpn: "0402CG150J500NT", fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": XTAL_OUT, "2": GND}}
+  U2: {lib: "Memory_Flash:W25Q32JVZP", value: W25Q32RVXHJQ, fp: "Package_SON:Winbond_USON-8-1EP_3x2mm_P0.5mm_EP0.2x1.6mm", mpn: W25Q32RVXHJQ, nets: {"1": QSPI_SS, "2": QSPI_SD1, "3": QSPI_SD2, "4": GND, "5": QSPI_SD0, "6": QSPI_SCLK, "7": QSPI_SD3, "8": 3V3, "9": GND}}
+  C11: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  R6: {lib: "Device:R", value: "10k", mpn: "0402WGF1002TCE", fp: "Resistor_SMD:R_0402_1005Metric", dnp: true, nets: {"1": QSPI_SS, "2": 3V3}}
+  R4: {lib: "Device:R", value: "1k", mpn: "0402WGF1001TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": QSPI_SS, "2": BOOTSEL}}
+  R1: {lib: "Device:R", value: "27", mpn: "0402WGF270JTCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": USB_CONN_DP, "2": USB_DP}}
+  R2: {lib: "Device:R", value: "27", mpn: "0402WGF270JTCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": USB_CONN_DM, "2": USB_DM}}
+  JP5: {lib: "Jumper:SolderJumper_2_Bridged", value: "Bridged", fp: "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm", bom: false, nets: {"1": VREG_FB, "2": DVDD}}
+  JP6: {lib: "Jumper:SolderJumper_2_Open", value: "Open", fp: "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm", bom: false, nets: {"1": VREG_FB, "2": GND}}
+place:
+  - {ref: U1, at: [203.2, 147.32]}
+  # VREG_AVDD: R5 33R from 3V3, C18 at the pin (HDG Fig. 15)
+  - {ref: C18, to: U1.46, at: [-10.16, -2.54], orient: v, near: top}
+  - {ref: R5, to: C18.1, at: [-5.08, 0], orient: h}
+  # 3V3 rail over the IOVDD / QSPI_IOVDD / VREG_VIN pins, one 100 nF per IOVDD pin + VREG_VIN caps
+  - {ref: C1, to: U1.49, at: [-22.86, -25.4], orient: v, near: top}
+  - {tap: U1.54, at: [0, -25.4]}
+  - {tap: U1.1, at: [0, -25.4]}
+  - {ref: C2, to: C1.1, at: [-10.16, 0], orient: v, near: top}
+  - {ref: C3, to: C2.1, at: [-10.16, 0], orient: v, near: top}
+  - {ref: C4, to: C3.1, at: [-10.16, 0], orient: v, near: top}
+  - {ref: C5, to: C4.1, at: [-10.16, 0], orient: v, near: top}
+  - {ref: C6, to: C5.1, at: [-10.16, 0], orient: v, near: top}
+  - {ref: C7, to: C6.1, at: [-10.16, 0], orient: v, near: top}
+  # core regulator: L1 on VREG_LX, DVDD caps on L1's output, Fig. 21 jumpers on VREG_FB
+  - {ref: L1, to: U1.48, at: [0, -25.4], orient: v, near: bottom, text: left}
+  - {ref: C8, to: L1.2, at: [12.7, 0], orient: v, near: top}
+  - {ref: C9, to: C8.1, at: [10.16, 0], orient: v, near: top}
+  - {ref: C10, to: C9.1, at: [10.16, 0], orient: v, near: top}
+  - {ref: C28, to: C10.1, at: [10.16, 0], orient: v, near: top}
+  - {ref: JP5, to: U1.50, at: [0, -15.24], orient: v, near: bottom}
+  - {tap: JP5.2, at: [0, -10.16]}
+  - {ref: JP6, to: U1.50, from: [0, -10.16], at: [2.54, 0], orient: h, near: left}
+  # Fig. 22 power loop at VREG_PGND (pin 47), wired: C_IN C16/C29 (VREG_VIN = 3V3) and C_OUT C17 (DVDD)
+  # return on VREG_PGND, which joins GND at one point only, through NT1 (RP2350 p.454)
+  - {ref: C16, to: U1.47, at: [-7.62, 20.32], orient: v, near: bottom, route: [[0, 20.32]]}
+  - {ref: C29, to: C16.2, at: [-10.16, 0], orient: v, near: bottom}
+  - {ref: C17, to: U1.47, from: [0, 20.32], at: [12.7, 0], orient: v, near: bottom}
+  - {ref: NT1, to: C17.2, at: [10.16, 0], pin: "1", hide_value: true}
+  # USB series resistors
+  - {ref: R2, to: U1.51, at: [-5.08, 0], orient: h, text: above}
+  - {ref: R1, to: U1.52, at: [-5.08, 0], orient: h, text: below}
+  # QSPI flash, mirrored so its pins face the RP2350 QSPI pins in the same order
+  - {ref: U2, to: U1.60, at: [-45.72, 0], pin: "1", mirror: y, ref_at: [6.35, -11.43], value_at: [-21.59, 11.43]}
+  - {wire: [U1.56, U2.6]}
+  - {wire: [U1.57, U2.5]}
+  - {wire: [U1.59, U2.2]}
+  - {wire: [U1.58, U2.3]}
+  - {wire: [U1.55, U2.7]}
+  - {wire: [U2.4, U2.9]}
+  - {ref: C11, to: U2.8, at: [-25.4, -2.54], orient: v, near: top, text: left}
+  - {ref: R6, to: U1.60, from: [-35.56, 0], at: [0, 0], orient: v, near: bottom}
+  - {ref: R4, to: U1.60, from: [-40.64, 0], at: [0, 0], orient: v, near: bottom, text: left}   # clear of R6 DNP cross (F13)
+  # 12 MHz crystal: XIN direct, XOUT through R3, load caps to GND
+  - {ref: Y1, to: U1.21, at: [-12.7, 0], pin: "1", rot: 270, text: right}
+  - {ref: R3, to: U1.22, at: [-5.08, 0], orient: h, text: above}
+  - {wire: [Y1.3, R3.2]}
+  - {ref: C23, to: Y1.1, at: [-10.16, 0], orient: h}
+  - {ref: C24, to: R3.2, at: [-10.16, 0], orient: h, text: below}
+symbols:
+  - {to: U1.44, route: [[0, -7.62]], side: left}
+  - {to: C7.1, side: up}
+  - {to: C29.1, side: up}
+  - {to: L1.2, side: up}
+  - {to: NT1.2, route: [[2.54, 0]], side: down}
+  - {to: C24.2, route: [[-2.54, 0]], side: down}
+  - {to: U1.61, route: [[0, 2.54], [5.08, 2.54]], side: down}
+  - {to: C11.1, side: up}
+  - {to: R4.2, route: [[0, -2.54]], side: left}
+flags:
+  - {net: DVDD, to: C28.1, side: up}
+  - {net: VREG_AVDD, to: R5.2, side: up}
+  - {net: VREG_PGND, to: C29.2, side: left}

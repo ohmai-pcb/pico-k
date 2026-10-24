@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="588" height="542" font-family="sans-serif" font-size="11">
+<text x="40" y="20" font-size="13">O2: 2 x PCC-SMD on a tongue beyond the 51 mm end (all 4 holes kept)</text>
+<rect x="40" y="314.4" width="168" height="128" fill="#2e6b3a" stroke="black"/>
+<rect x="62.4" y="216.0" width="123.2" height="98.4" fill="#3f8a4d" stroke="black"/>
+<text x="216" y="265.2">tongue beyond 51 mm outline (ESTIMATE 12.3 x 15.4 mm)</text>
+<line x1="24" y1="314.4" x2="224" y2="314.4" stroke="red" stroke-dasharray="4 3"/>
+<text x="216" y="318.4" fill="red">Pico 51 mm outline (end opposite USB)</text>
+<circle cx="52.88" cy="325.36" r="6.4" fill="gold" stroke="black"/>
+<circle cx="195.12" cy="325.36" r="6.4" fill="gold" stroke="black"/>
+<circle cx="52.88" cy="345.68" r="6.4" fill="gold" stroke="black"/>
+<circle cx="195.12" cy="345.68" r="6.4" fill="gold" stroke="black"/>
+<circle cx="52.88" cy="366.0" r="6.4" fill="gold" stroke="black"/>
+<circle cx="195.12" cy="366.0" r="6.4" fill="gold" stroke="black"/>
+<circle cx="52.88" cy="386.32" r="6.4" fill="gold" stroke="black"/>
+<circle cx="195.12" cy="386.32" r="6.4" fill="gold" stroke="black"/>
+<circle cx="52.88" cy="406.64" r="6.4" fill="gold" stroke="black"/>
+<circle cx="195.12" cy="406.64" r="6.4" fill="gold" stroke="black"/>
+<circle cx="52.88" cy="426.96000000000004" r="6.4" fill="gold" stroke="black"/>
+<circle cx="195.12" cy="426.96000000000004" r="6.4" fill="gold" stroke="black"/>
+<circle cx="78.4" cy="330.4" r="8.4" fill="white" stroke="black"/>
+<circle cx="169.6" cy="330.4" r="8.4" fill="white" stroke="black"/>
+<rect x="77.03999999999999" y="220.0" width="34.160000000000004" height="72.0" fill="#b5b5b5" fill-opacity="0.85" stroke="black"/>
+<rect x="66.32" y="238.72" width="8.96" height="34.56" fill="#888" stroke="black"/>
+<rect x="78.4" y="294.15999999999997" width="28.880000000000003" height="12.0" fill="white" stroke="black"/>
+<rect x="136.8" y="220.0" width="34.16000000000001" height="72.0" fill="#b5b5b5" fill-opacity="0.85" stroke="black"/>
+<rect x="172.72" y="238.72" width="8.960000000000008" height="34.56" fill="#888" stroke="black"/>
+<rect x="140.72" y="294.15999999999997" width="28.879999999999995" height="12.0" fill="white" stroke="black"/>
+<rect x="104.0" y="312.56" width="40.0" height="51.2" fill="#222" stroke="white"/>
+<text x="105.6" y="339.76" fill="white" font-size="9">MAX31856</text>
+<rect x="73.2" y="51.19999999999996" width="101.6" height="164.8" fill="none" stroke="#c90" stroke-dasharray="5 3"/>
+<text x="76.0" y="136.0" fill="#c90">mini plug body, off-board</text>
+<text x="40" y="522">Sketch from datasheet numbers; not a footprint. Grey = PCC-SMD pads/tabs, white = slots/holes, gold = Pico pads.</text>
+</svg>

@@ -1,0 +1,41 @@
+# Block 3: 3V3 buck-boost. Reference figure: TPS63001 datasheet SLVS520C, typical application
+# (Fig. on p.1 / Table 1 p.10): C1 at VIN, R3 + C3 filter for VINA, L1 between L1/L2, VOUT=FB, C2 at VOUT.
+title: "3 3V3 buck-boost (TPS63001 typ. application)"
+paper: A4
+parts:
+  U3: {lib: "Regulator_Switching:TPS63001", value: TPS63001, fp: "Package_SON:Texas_DRC0010J_ThermalVias", mpn: TPS63001DRCR, nets: {"5": VSYS, "8": VINA, "6": 3V3_EN, "7": SMPS_PS, "4": REG_L1, "2": REG_L2, "9": GND, "3": GND, "11": GND, "1": 3V3, "10": 3V3}}
+  L2: {lib: "Device:L", value: "2.2uH", fp: "pico-k:L_Murata_DFE201612P", mpn: DFE201612P-2R2M, nets: {"1": REG_L1, "2": REG_L2}}
+  C20: {lib: "Device:C", value: "10u 25V", mpn: CL21A106KAYNNNE, fp: "Capacitor_SMD:C_0805_2012Metric", nets: {"1": VSYS, "2": GND}}
+  R14: {lib: "Device:R", value: "100", mpn: "0402WGF1000TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": VSYS, "2": VINA}}
+  C15: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": VINA, "2": GND}}
+  R15: {lib: "Device:R", value: "100k", mpn: "0402WGF1003TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": 3V3_EN, "2": VSYS}}
+  R16: {lib: "Device:R", value: "100k", mpn: "0402WGF1003TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": SMPS_PS, "2": GND}}
+  C21: {lib: "Device:C", value: "10u", mpn: CL10A106MA8NRNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": 3V3, "2": GND}}
+  C22: {lib: "Device:C", value: "10u", mpn: CL10A106MA8NRNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": 3V3, "2": GND}}
+  C31: {lib: "Device:C", value: "10u", mpn: CL10A106MA8NRNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": 3V3, "2": GND}}
+place:
+  - {ref: U3, at: [165.1, 114.3]}
+  # inputs fan out to 15.24 mm pitch: VIN (VSYS rail with C20), VINA (R14 + C15), EN (R15 pull-up + port)
+  - {ref: C20, to: U3.5, at: [-27.94, -35.56], orient: v, near: top, route: [[-2.54, 0], [-2.54, -35.56]]}
+  - {ref: R14, to: U3.5, from: [-12.7, -35.56], at: [0, 0], orient: v, near: top}
+  - {ref: C15, to: U3.8, at: [-35.56, -22.86], orient: v, near: top, route: [[-5.08, 0], [-5.08, -22.86]]}
+  - {tap: R14.2, at: [0, 7.62]}
+  - {ref: R15, to: U3.6, at: [-20.32, 0], orient: v, near: bottom}   # F1/F2: EN pull-up clear of the VINA node
+  - {ref: R16, to: U3.7, at: [-20.32, 0], orient: v, near: top}
+  # power stage
+  - {ref: L2, to: U3.4, at: [-5.08, 0], orient: v, near: top, text: left}
+  - {wire: [L2.2, U3.2]}
+  - {wire: [U3.9, U3.3]}
+  # output: VOUT = FB (fixed 3.3 V version), output caps on the 3V3 rail
+  - {wire: [U3.10, U3.1]}
+  - {ref: C21, to: U3.1, at: [7.62, 0], orient: v, near: top}
+  - {ref: C22, to: C21.1, at: [10.16, 0], orient: v, near: top}
+  - {ref: C31, to: C22.1, at: [10.16, 0], orient: v, near: top}
+symbols:
+  - {to: C20.1, side: left}
+  - {to: C31.1, side: up}
+  - {to: R15.1, side: left}
+  - {to: R16.1, side: left}
+flags:
+  - {net: VSYS, to: R15.2, side: left}
+  - {net: VINA, to: C15.1, side: up}

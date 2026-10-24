@@ -1,0 +1,67 @@
+# TPS63001DRCR constraints (DRAFT, agent-generated, not yet reviewed). TI SLVS520C (March 2006, revised October 2015).
+# Pages = printed page numbers. pico-k use: VSYS (VBUS - D1) -> fixed 3.3 V (3V3 net).
+schema: ohmai-constraints/v1
+part: TPS63001DRCR
+mpn: TPS63001DRCR
+manufacturer: Texas Instruments
+package: VSON-10 3x3 mm (DRC) with exposed thermal pad
+match: {value: TPS63001, mpn: TPS63001DRCR}
+datasheet:
+  file: datasheets/TPS63001DRCR.pdf
+  revision: "SLVS520C - March 2006 - revised October 2015"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+abs_max:
+  - {param: "Input voltage on VIN, VINA, L1, L2, VOUT, PS/SYNC, EN, FB", min: -0.3, max: 7, unit: V, cite: {page: 4, where: "§6.1 Absolute Maximum Ratings"}}
+  - {param: Operating virtual junction temperature, min: -40, max: 150, unit: degC, cite: {page: 4, where: "§6.1"}}
+  - {param: Storage temperature, min: -65, max: 150, unit: degC, cite: {page: 4, where: "§6.1"}}
+  - {param: ESD HBM, max: 2000, unit: V, cite: {page: 4, where: "§6.2"}}
+recommended:
+  - {param: Input voltage range for start-up, min: 1.9, max: 5.5, unit: V, cite: {page: 5, where: "Electrical Characteristics"}}
+  - {param: "Supply voltage at VIN, VINA", min: 1.8, max: 5.5, unit: V, cite: {page: 4, where: "§6.3 Recommended Operating Conditions"}}
+  - {param: Operating free-air temperature, min: -40, max: 85, unit: degC, cite: {page: 4, where: "§6.3"}}
+  - {param: Operating junction temperature, min: -40, max: 125, unit: degC, cite: {page: 4, where: "§6.3"}}
+  - {param: UVLO threshold (VINA falling), min: 1.5, typ: 1.7, max: 1.8, unit: V, cite: {page: 5, where: "§6.5 Electrical Characteristics"}}
+  - {param: "Switch current limit (VIN = 3.6 V, 25 degC)", min: 1600, typ: 1800, max: 2000, unit: mA, cite: {page: 5, where: "§6.5"}}
+  - {param: "EN, PS/SYNC input low", max: 0.4, unit: V, cite: {page: 5, where: "§6.5"}}
+  - {param: "EN, PS/SYNC input high", min: 1.2, unit: V, cite: {page: 5, where: "§6.5"}}
+  - {param: Thermal resistance RthJA, typ: 46.8, unit: degC/W, cite: {page: 4, where: "§6.4"}}
+evb_reference: {document: "TI SLVS520C Table 1 List of Components (application curves circuit, Fig. 2)", cite: {page: 10, where: "§8.2.1 Table 1"}}
+layout_notes:
+  - {text: "Input capacitor, output capacitor and inductor as close as possible to the IC; wide, short traces for the main current paths", cite: {page: 16, where: "§10.1 Layout Guidelines"}}
+  - {text: "Use a common ground node for power ground and a separate one for control ground; connect GND and PGND on the PCB at one point, ideally close to the GND pin", cite: {page: 7, where: "Detailed description (GND/PGND note); also §10.1 p.16"}}
+  - {text: "Exposed thermal pad is connected to PGND; solder it for the thermal path (RthJA 46.8 degC/W is a JEDEC board value)", cite: {page: 3, where: "Pin Functions"}}
+open_questions:
+  - "Input/output capacitor values are nominal in Table 1 (10 uF in, 2 x 10 uF out, 6.3 V 0603 X7R) and 'recommended nominal output capacitance 15 uF' (p.12). pico-k uses 10 uF 25 V X5R 0603 CL10A106MA8NRNC (LCSC C96446, D-007 P5-6). Samsung DC-bias curve (datasheets/CL10A106MA8NRNC.pdf), ESTIMATE read from the plot: about -33 % at 3.3 V (6.7 uF each, 13.4 uF for C21+C22, below the 15 uF nominal) and about -52 % at 5 V (4.8 uF for C20, near the 4.7 uF minimum before the -20 % tolerance). Independent read (Reviewer-A review F28): -38 % / -56 %, i.e. C21+C22 ~12.4 uF and C20 ~4.4 uF, below 'at least 4.7 uF' even at nominal; still no worse than TI's Table 1 0603 6.3 V X7R. RESOLVED D-008 (P5-10, owner): one more 10 uF on each side. Cin (amended D-009, P5-14): ONE 10 uF 50 V X5R 1206 CL31A106KBHNNNE (C20, LCSC C13585) instead of C20 + C30: curve read (datasheets/CL31A106KBHNNNE.pdf) -22.5 % at 5.0 V = 7.75 uF, -24.8 % at 5.25 V = 7.5 uF; worst case (-10 % tolerance, about -10 % at 85 °C from the TCC plot) ≈ 6.1 uF >= 4.7 uF. Cout = C21 + C22 + C31: ≈ 18.6-20.1 uF typ at 3.3 V >= 15 uF, ≈ 14.9-16.1 uF at -20 % tolerance, ≈ 14.2-15.3 uF at -20 % and 85 °C (CL10A106MA8NRNC TCC about -5 %; informational: 15 uF is a recommended nominal value); TI states no upper limit (p.12). ESTIMATE from both curve reads. USB VBUS inrush (USB 2.0 §7.2.4.1 p.177: 10 uF ∥ 44 ohm incl. 'capacitive effects visible through the regulator'): the TPS63001 soft start begins at a 400 mA average current limit (§7.4.1 p.9), so the 3V3 output capacitance is visible on VBUS; the exceedance is accepted for rev-A as a documented deviation (D-010), VBUS droop is measured at bring-up."
+  - "PS/SYNC: pico-k drives it from RP2350 GPIO23 as on Pico 2 (Pico 2 datasheet p.15) with R16 100 kOhm pull-down (Pico 2 W R8 on PS). TI only says 0 = power save; a defined level while RP2350 is in reset needs the pull-down - confirm R16's role in the schematic."
+  - "Datasheet inconsistency: RθJA 46.8 degC/W in Thermal Information (p.4) vs 48.7 degC/W in §10.3 (p.16). Use 48.7 (worse) for estimates; dissipation is small at pico-k currents."
+  - "Inductor: TI Table 2 (p.11) lists recommended 2.2 uH parts; pico-k uses SWPA3015S2R2MT (not in Table 2), sized in phase 4 from Eq. 3-4 (p.11-12)."
+pins:
+  - {number: "1", name: VOUT, direction: regulator_out, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}},
+     note: "3.3 V fixed output (3V3 net)",
+     required_external: [{kind: capacitor, to: GND, nominal: 15, unit: uF, total_on_net: true, cite: {page: 12, where: "§8.2.2.3.2 Output Capacitor"}, note: "recommended nominal output capacitance 15 uF (Table 1: 2 x 10 uF X7R); small ceramics close to VOUT and PGND. pico-k C21 C22 C31 3 x 10 uF 0603 (D-008)"}]}
+  - {number: "2", name: L2, direction: switch, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}}, note: "inductor connection (I/O column says IN)",
+     required_external: [{kind: inductor, to: "pin:4", nominal: 2.2, unit: uH, cite: {page: 10, where: "Table 1 (L1 VLF4012-2R2)"}, note: "pico-k L2 SWPA3015S2R2MT; peak current per Eq. 3-4 p.11-12"}]}
+  - {number: "3", name: PGND, direction: ground, cite: {page: 3, where: "Pin Functions"}, note: "power ground"}
+  - {number: "4", name: L1, direction: switch, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}}, note: "inductor connection (I/O column says IN)"}
+  - {number: "5", name: VIN, direction: supply_in, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}},
+     note: "power stage supply, VSYS net (1.8-5.5 V)",
+     required_external: [{kind: capacitor, to: GND, min: 4.7, nominal: 10, unit: uF, cite: {page: 12, where: "§8.2.2.3.1 Input Capacitor"}, note: "at least 4.7 uF ceramic as close as possible to VIN and PGND (Table 1 C1 10 uF). pico-k C20 1 x 10 uF 50 V 1206 CL31A106KBHNNNE, ≈ 6.1 uF worst case at 5.25 V (D-009, ESTIMATE)"}]}
+  - {number: "6", name: EN, direction: input, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}},
+     note: "1 = enabled. pico-k: 3V3_EN, pulled up to VSYS and brought to Pico pin 37 as Pico 2",
+     required_external: [{kind: pullup, to: VSYS, nominal: 100, unit: kohm, cite: {page: 15, where: "§5.4 Powerchain", doc: "pico-2-datasheet.pdf"}, note: "pico-k R15"}]}
+  - {number: "7", name: PS/SYNC, direction: input, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}},
+     note: "0 = power save, 1 = forced PWM, or clock for sync (p.9). pico-k: RP2350 GPIO23 as Pico 2",
+     required_external: [{kind: resistor, to: GND, nominal: 100, unit: kohm, cite: {page: 1, where: "R8 on PS (WL_GPIO1)", doc: "pico-2-w-schematic.pdf (RP-008306)"}, note: "pull-down keeps PFM while RP2350 is in reset; pico-k R16 (see open questions)"}]}
+  - {number: "8", name: VINA, direction: supply_in, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}},
+     note: "control stage supply, filtered from VIN",
+     required_external: [
+       {kind: resistor, nominal: 100, unit: ohm, cite: {page: 10, where: "Table 1 (R3)"}, note: "VIN -> VINA filter; pico-k R14"},
+       {kind: capacitor, to: GND, nominal: 0.1, unit: uF, dielectric: X7R, cite: {page: 10, where: "Table 1 (C3)"}, note: "pico-k C15"}]}
+  - {number: "9", name: GND, direction: ground, cite: {page: 3, where: "Pin Functions"}, note: "control / logic ground; single-point join to PGND (p.7)"}
+  - {number: "10", name: FB, direction: feedback, cite: {page: 3, where: "Pin Functions"}, abs_max: {min: -0.3, max: 7, unit: V, cite: {page: 4}},
+     note: "fixed-output TPS63001: MUST be connected to VOUT (p.3, p.10). R1/R2 divider only for the TPS63000 alternate (R2 ~200 kOhm, < 500 kOhm, p.11)"}
+  - {number: "11", name: EP (thermal pad), direction: ground, cite: {page: 3, where: "Pin Functions"}, note: "exposed thermal pad, connected to PGND. Pad number 11 assigned here; check the footprint"}

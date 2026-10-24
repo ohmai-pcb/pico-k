@@ -1,0 +1,8 @@
+# Symbol map: KiCad Device:LED -> KT-0805G datasheet pads (D-012 P7-4). Reviewed constraints untouched.
+# Datasheet p.2 "2. Package Profile & Soldering PAD Suggested": pad 1 = + (anode), pad 2 = - (cathode),
+# green mark at the cathode end. KiCad Device:LED pin 1 = K, pin 2 = A; LED_0805_2012Metric pad 1 = cathode.
+# So datasheet pad numbers are the reverse of KiCad's: orient D2 by the cathode mark at assembly (phase 8 CPL check).
+symbol: "Device:LED"
+pins:
+  "1": {datasheet: "2", symbol_name: K, cite: {page: 2, where: "Package Profile, pad 2 = cathode (-)"}}
+  "2": {datasheet: "1", symbol_name: A, cite: {page: 2, where: "Package Profile, pad 1 = anode (+)"}}

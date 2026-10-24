@@ -1,0 +1,84 @@
+# OhmAI project config. ohmai_version = the OhmAI release this project was created with.
+ohmai_version: "0.1.0.dev0"
+project: "pico-k"
+# Public / anonymous repository mode (`ohmai new --anonymous`):
+anonymous: true
+hardware:
+  schematic: hardware/pico-k.kicad_sch
+  pcb: hardware/pico-k.kicad_pcb
+expected_nets: expected_nets.csv
+constraints_dir: parts/constraints
+bom: bom/bom.csv
+out_dir: out
+# Pinned official KiCad libraries (D-012, friction 4): `ohmai kicad-libs install|tables|status`.
+# Project lib tables (hardware/sym-lib-table, fp-lib-table) point at ${OHMAI_KICAD_SYMBOLS}/${OHMAI_KICAD_FOOTPRINTS}.
+kicad:
+  libraries: "9.0.9.1"
+  # KiCad application version range (owner D-014, Reviewer-A F18): `ohmai check kicad-app` FAILs outside it.
+  app: ">=9.0.2,<9.1"
+# Commit trailers (owner 2026-10-15, D-012): every commit on a phase branch carries
+#   OhmAI-Author: name=...; kind=agent|human; vendor=...; model=...; instructions=...
+# (`ohmai commit -m ...`, commit-msg hook via `ohmai hooks install`, `ohmai check commits`).
+author: {name: OhmAI, kind: agent, vendor: Grok Bot, model: Grok Bot, instructions: "ohmai-skill 0.1.0.dev0"}
+commits:
+  base: main
+checks:
+  erc_allow_warnings: false   # owner decision only; record in docs/decisions.md
+  png_width: 2400
+  readability:
+    allow_local_labels: []    # fnmatch patterns for long buses only; none needed on rev-A
+    allow_crossings: false
+
+# Independent review gates (OhmAI docs/REVIEWS.md). Added 2026-10-15 (owner request); template defaults.
+# Levels, best first: 1 other vendor's model, 2 other model same vendor, 3 other agent/instructions, 4 human.
+reviews:
+  gates:
+    safety:      {required: 1, min_independence: 4, scope: [docs/safety.md]}
+    constraints:
+      required: 1
+      min_independence: 3
+      scope: ["parts/constraints/*.yaml"]
+      exclude: ["*.example.*"]
+      sources: [datasheets/README.md, docs/decisions.md, bom/bom.csv]
+      extra_paths: [docs/review-constraints-reviewer-a.md]   # P5-1 was asked of Reviewer-A at this path (D-007)
+      note: >-
+        P5-1 was delegated to Reviewer-A (owner, D-007) with the output path docs/review-constraints-reviewer-a.md.
+        That path is accepted as well as reviews/constraints/reviewer-a.md; either way it needs the header and
+        table format above. Owner decisions D-006/D-007 are locked: flag conflicts as questions, do not reopen.
+        DC-bias values marked ESTIMATE are already tracked as open owner item P5-10; report anything you find on them as usual.
+    schematic:   {required: 1, min_independence: 2,
+                  scope: ["hardware/*.kicad_sch", expected_nets.csv, "hardware/gen/layout/*.yaml", "parts/symbol-maps/*.yaml"],
+                  sources: ["parts/constraints/*.yaml", docs/decisions.md],
+                  note: "Reviewer: Reviewer-A (owner, D-013). RE-CHECK ROUND (2026-10-15): your first review (files_hash
+                    0616527e...) is answered in reviews/schematic/resolutions.md (fixes in bcfdc1c, D-014 in the
+                    commit after it). Re-verify on this brief and update reviews/schematic/reviewer-a.md (new files_hash):
+                    F1/F2 regulator R15 VSYS clear of the VINA node; F3 mcu_core core VREG vs RP2350 Fig. 22 p.453,
+                    especially the C16/C29/C17 to VREG_PGND loop drawn at U1 pin 47 (the KiCad RP2350A symbol has
+                    VREG_PGND on the bottom edge, opposite VREG_VIN/LX/FB) and the single-point NT1 join (p.454);
+                    the nit fixes; D-014: TP5 on LED_A (sheet 6) and kicad.app pin. Then, as before:
+                    Write reviews/schematic/reviewer-a.md with the YAML header above
+                    (reviewer, vendor, model, instructions, independence level 1-4 with independence_note, files_hash).
+                    Do all four:
+                    (a) NETS AND PINS: verify every net and pin against the cited datasheet page and against
+                    expected_nets.csv (the row comments cite the pin source per part); symbol pins that differ from
+                    the datasheet are mapped in parts/symbol-maps/*.yaml (check each mapping and its page; D2 LED pad
+                    numbering KT-0805G p.2, D-012).
+                    (b) READABILITY: run `ohmai check render` (or `ohmai check schematic`) to create
+                    out/render/png/pico-k*.png (out/ is not committed) and judge each sheet against the datasheet
+                    application figure it follows: thermocouple vs MAX31856 Fig. 8 (p.27); regulator vs TPS63001
+                    SLVS520C typical application (p.1, Table 1 p.10); mcu_core vs the RP2350 minimal design
+                    (datasheets/hardware-design-with-rp2350.pdf) and the Pico 2 schematic
+                    (datasheets/pico-2-w-schematic.pdf p.1), VREG per RP2350 §6.3 p.451-455; power_usb vs USBLC6-2SC6
+                    application (Fig. 14 p.8). Readability findings are issues like any other (cite the figure).
+                    (c) CRYSTAL: check the U1.21 XIN / U1.22 XOUT hookup (Y1, R3 1 kOhm, C23/C24) by hand: the passives
+                    check only WARNs here (kind crystal not machine-checked). Sources: HDG §4 Crystal Oscillator p.13-14
+                    (Fig. 10), RP2350 datasheet Table 597 p.555, ABM8-272-T3 p.1 (CL 10 pF), p.2 (pads); nets XIN / XOUT /
+                    XTAL_OUT in expected_nets.csv (its header now cites HDG Fig. 10 p.13, Reviewer-A F5).
+                    (d) Also check the D-012/D-013 choices (P7-6 JP5/JP6 per Fig. 21 p.452, P7-8 agent choices).
+                    Report findings only; do not edit files."}
+    layout:      {required: 1, min_independence: 2, scope: ["hardware/*.kicad_pcb"], sources: ["parts/constraints/*.yaml"]}
+    bom:         {required: 1, min_independence: 3, scope: [bom/bom.csv], sources: [parts/selection.md]}
+    # fab: pre-order human sign-off on Gerbers/drill, CPL centroids & polarity, locked BOM + single-source list, and quote/DFM preview.
+    fab:         {required: 1, min_independence: 4, require_kind: human, scope: [bom/bom.csv, "hardware/*.kicad_pcb"], sources: [parts/selection.md, docs/safety.md]}
+    # bringup: a human signs off measurements on the real board (owner D-015; the owner may sign, agents author).
+    bringup:     {required: 1, min_independence: 4, require_kind: human, scope: [docs/manual.md, test/bringup-plan.md], sources: [docs/safety.md]}

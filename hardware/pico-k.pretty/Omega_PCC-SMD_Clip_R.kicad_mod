@@ -1,0 +1,299 @@
+(footprint "Omega_PCC-SMD_Clip_R"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Omega PCC-SMD mini thermocouple clip, right (+, T+) of the pair. Origin = pair centreline at the board edge. Dimensions: Omega PCC-SMD spec sheet p.2 BARE PCB (pad x 1.60-5.87 y 0.50-9.50; tab x 5.87-7.21 y 2.84-7.16; plated side slot x 6.09-6.70 y 3.38-6.63; rear slot x 2.09-5.70 y 9.77-11.27 R0.40, non-plated) and SOLDER PASTE PROFILE p.2. Polarity per D-009: seen from the top with this edge toward the viewer, + is on the right.")
+	(tags "thermocouple connector PCC-SMD omega")
+	(property "Reference" "REF**"
+		(at 3.7 -12.3 0)
+		(layer "F.SilkS")
+		(uuid "590f52ce-d357-4293-9da7-7028efb996e5")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Value" "PCC-SMD +"
+		(at 3.7 -5 0)
+		(layer "F.Fab")
+		(uuid "f1bd2fd3-bc04-4d8d-b1a9-83ba37d7a53e")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.09)
+			)
+		)
+	)
+	(property "Datasheet" "datasheets/PCC-SMD.pdf p.2"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a4c657a6-129b-4de5-947b-7cde5cf4ce74")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2266e67a-4082-498b-89d2-ba39ec128d50")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start 2.09 -10.17)
+		(end 2.09 -10.87)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "c3c7f20f-8a54-4e7d-b5ab-2dabcae9e22d")
+	)
+	(fp_line
+		(start 2.49 -11.27)
+		(end 5.3 -11.27)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "01cc600e-6259-41e7-959a-7b919de6bb4d")
+	)
+	(fp_line
+		(start 5.3 -9.77)
+		(end 2.49 -9.77)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "73d8fc57-a7d1-4dab-a71e-d8cc453a9335")
+	)
+	(fp_line
+		(start 5.7 -10.87)
+		(end 5.7 -10.17)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "706c5aa0-afa0-4169-9e45-0910c475d4ef")
+	)
+	(fp_arc
+		(start 2.09 -10.87)
+		(mid 2.2072 -11.1528)
+		(end 2.49 -11.27)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "c3999d7f-de57-42f5-889d-cf4863b782d0")
+	)
+	(fp_arc
+		(start 2.49 -9.77)
+		(mid 2.2072 -9.8872)
+		(end 2.09 -10.17)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "228d6317-a6f1-4628-8a4f-a7064af3422d")
+	)
+	(fp_arc
+		(start 5.3 -11.27)
+		(mid 5.5828 -11.1528)
+		(end 5.7 -10.87)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "6f283d08-0c5d-4b7c-8ec5-281344e92d18")
+	)
+	(fp_arc
+		(start 5.7 -10.17)
+		(mid 5.5828 -9.8872)
+		(end 5.3 -9.77)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "7244c6a3-3eb4-493d-b3e1-0855ba1bfc92")
+	)
+	(fp_line
+		(start 1.35 -11.52)
+		(end 1.35 2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "c6cb1289-1ef1-4839-a022-16280a42e9ec")
+	)
+	(fp_line
+		(start 1.35 2.6)
+		(end 7.46 2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b2d22eba-0d4d-44a8-8ae4-6931e9185803")
+	)
+	(fp_line
+		(start 7.46 -11.52)
+		(end 1.35 -11.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "19e855bf-477c-4508-b7fe-33a7f1bb25bd")
+	)
+	(fp_line
+		(start 7.46 2.6)
+		(end 7.46 -11.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b9e3b644-a04d-4660-9e89-e67c6f9d4ae7")
+	)
+	(fp_line
+		(start 1.6 -9.51)
+		(end 1.6 2.43)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "b7aaecc5-7443-4ea8-b8a8-da6c31e8f66a")
+	)
+	(fp_line
+		(start 1.6 2.43)
+		(end 7.21 2.43)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "c4945106-6c8f-4722-b7e4-1233cd842fa3")
+	)
+	(fp_line
+		(start 7.21 -9.51)
+		(end 1.6 -9.51)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "16f91026-dab9-4d8f-8c7f-bb57e2b34c31")
+	)
+	(fp_line
+		(start 7.21 2.43)
+		(end 7.21 -9.51)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d0abf734-6eb9-436d-b497-d4f500eb08b1")
+	)
+	(fp_text user "+"
+		(at 6.6 -10.5 0)
+		(layer "F.SilkS")
+		(uuid "ea2e248e-154a-43ae-b8d9-e39f1b13f45d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" smd rect
+		(at 2.66 -8.225)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "2ae55b4f-1c33-4684-ae2a-777cf9d0aa43")
+	)
+	(pad "" smd rect
+		(at 2.66 -6)
+		(size 1.65 1.5)
+		(layers "F.Paste")
+		(uuid "3361e782-4e9d-4342-8036-a40846051995")
+	)
+	(pad "" smd rect
+		(at 2.66 -4)
+		(size 1.65 1.5)
+		(layers "F.Paste")
+		(uuid "f0d65ada-371a-4f82-81eb-168e8fa3a3aa")
+	)
+	(pad "" smd rect
+		(at 2.66 -1.775)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "3ce40906-dd94-4871-abd9-0317953db78b")
+	)
+	(pad "" smd rect
+		(at 4.81 -8.225)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "7b3f8559-b174-43b2-8b78-9666d6309ae0")
+	)
+	(pad "" smd rect
+		(at 4.81 -1.775)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "6ce3eb5a-a22e-49ce-8536-639d4f11c2e6")
+	)
+	(pad "" smd rect
+		(at 5.185 -6)
+		(size 2.7 1.5)
+		(layers "F.Paste")
+		(uuid "561c6a17-428f-47f8-a9ec-6d55e857dff2")
+	)
+	(pad "" smd rect
+		(at 5.185 -4)
+		(size 2.7 1.5)
+		(layers "F.Paste")
+		(uuid "666b0521-c488-422a-a0a5-adbba7dfdd3c")
+	)
+	(pad "1" smd rect
+		(at 3.735 -5)
+		(size 4.27 9)
+		(layers "F.Cu" "F.Mask")
+		(uuid "5657c862-a5bf-4e5f-9ffd-e75636701c11")
+	)
+	(pad "1" thru_hole oval
+		(at 6.395 -5.005)
+		(size 0.91 3.55)
+		(drill oval 0.61 3.25)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "3acc3c77-cbfc-49bc-b923-db68710e02eb")
+	)
+	(pad "1" smd rect
+		(at 6.54 -5)
+		(size 1.34 4.32)
+		(layers "F.Cu" "F.Mask")
+		(uuid "4563121a-c4ec-4790-8c86-7160dfb13a6f")
+	)
+	(embedded_fonts no)
+)

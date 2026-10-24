@@ -1,0 +1,37 @@
+# Block 1: USB-C power entry. Reference: USB Type-C spec Rd = 5.1k on CC1/CC2 (sink); USBLC6-2SC6
+# datasheet application (lines pass through I/O1/I/O2, VBUS pin to VBUS); D1 VBUS -> VSYS as the
+# Pico 2 datasheet power chain (p.14-15). architecture.md §USB-C, §Power tree.
+title: "1 power / USB-C (USBLC6-2SC6 Fig. 14)"
+paper: A4
+parts:
+  J1: {lib: "Connector:USB_C_Receptacle_USB2.0_16P", value: USB-C, fp: "pico-k:USB_C_Receptacle_ShouHan_TYPE-C-16PIN-2MD-073", mpn: "TYPE-C 16PIN 2MD(073)", nets: {"A1": GND, "A12": GND, "B1": GND, "B12": GND, "S1": GND, "A4": VBUS, "A9": VBUS, "B4": VBUS, "B9": VBUS, "A5": CC1, "B5": CC2, "A6": USB_CONN_DP, "B6": USB_CONN_DP, "A7": USB_CONN_DM, "B7": USB_CONN_DM, "A8": NC, "B8": NC}}
+  R10: {lib: "Device:R", value: "5.1k", mpn: "0402WGF5101TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": CC1, "2": GND}}
+  R11: {lib: "Device:R", value: "5.1k", mpn: "0402WGF5101TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": CC2, "2": GND}}
+  U4: {lib: "Power_Protection:USBLC6-2SC6", value: USBLC6-2SC6, fp: "Package_TO_SOT_SMD:SOT-23-6", mpn: USBLC6-2SC6, nets: {"1": USB_CONN_DP, "6": USB_CONN_DP, "3": USB_CONN_DM, "4": USB_CONN_DM, "2": GND, "5": VBUS}}
+  D1: {lib: "Device:D_Schottky", value: MBR120VLSFT1G, mpn: MBR120VLSFT1G, fp: "Diode_SMD:D_SOD-123F", nets: {"1": VSYS, "2": VBUS}}
+  C19: {lib: "Device:C", value: "10u", mpn: CL10A106MA8NRNC, fp: "Capacitor_SMD:C_0603_1608Metric", nets: {"1": VBUS, "2": GND}}
+place:
+  - {ref: J1, at: [60.96, 101.6]}
+  - {wire: [J1.A7, J1.B7]}
+  - {wire: [J1.A6, J1.B6]}
+  - {wire: [J1.S1, J1.A1]}
+  # CC: Rd to GND, staggered so the GND symbols clear the next line
+  - {ref: R11, to: J1.B5, at: [15.24, 0], orient: h, text: below}
+  - {ref: R10, to: J1.A5, at: [25.4, 0], orient: h}
+  # VBUS: C19 at the connector, D1 to VSYS
+  - {ref: C19, to: J1.A4, at: [45.72, 0], orient: v, near: top}
+  - {ref: D1, to: C19.1, at: [10.16, 0], orient: h, text: below}
+  # ESD array in line with D+/D- (rot 90: line pins on top/bottom)
+  - {ref: U4, to: J1.B6, at: [20.32, 5.08], pin: "6", rot: 90, ref_at: [3.81, -6.35], value_at: [3.81, -4.445]}
+  - {wire: [J1.B7, U4.4]}
+symbols:
+  - {to: J1.A1, side: down}
+  - {to: R11.2, route: [[5.08, 0]], side: down}   # GND clear of R11's value (Reviewer-A F14)
+  - {to: J1.A4, from: [12.7, 0], side: up}
+  - {to: J1.A7, side: right}
+  - {to: J1.A6, side: right}
+  - {to: U4.1, route: [[0, 2.54], [-5.08, 2.54]], side: left}
+  - {to: U4.3, route: [[0, 5.08], [5.08, 5.08]], side: right}
+flags:
+  - {net: VBUS, to: J1.A4, from: [30.48, 0], side: up}
+  - {net: GND, to: J1.S1, side: left}

@@ -1,0 +1,181 @@
+(footprint "L_Murata_DFE201612P"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Murata DFE201612P 2.0 x 1.6 x 1.2 mm metal-alloy inductor. Land pattern Murata spec JE243A-0033-01 p.5 (pads 0.8 x 1.8, gap 0.8, 2.4 overall: pads at +/-0.8); body p.1 (2.0 x 1.6 +/-0.2). Keepout (no tracks/vias/pour, all copper layers) between the pads under the coil per the spec notes.")
+	(tags "inductor Murata DFE201612P 2016")
+	(property "Reference" "REF**"
+		(at 0 -1.7 0)
+		(layer "F.SilkS")
+		(uuid "0495c31c-9d3a-40fc-bd47-56f676ab090d")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.09)
+			)
+		)
+	)
+	(property "Value" "DFE201612P"
+		(at 0 1.7 0)
+		(layer "F.Fab")
+		(uuid "1b88d9ec-be3a-46d7-9d86-7030c337ae5c")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.075)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "aa6b911b-7b97-45bf-8d75-14f1deff413b")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e9e7a15f-1021-4b64-817a-67e140c89ef4")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -1.45 -1.15)
+		(end 1.45 -1.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "15509663-3c4c-4f2b-a5ce-19333d5c7a72")
+	)
+	(fp_line
+		(start -1.45 1.15)
+		(end -1.45 -1.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "6fb8f6ee-4037-4eb8-9895-d716fbd3722b")
+	)
+	(fp_line
+		(start 1.45 -1.15)
+		(end 1.45 1.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "16fd7130-eb35-4f3a-b71c-c4ab29568e43")
+	)
+	(fp_line
+		(start 1.45 1.15)
+		(end -1.45 1.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "a2b76384-8217-48c4-bc03-c85b26937a4c")
+	)
+	(fp_line
+		(start -1 -0.8)
+		(end 1 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "795c4ca8-e326-47f1-874b-f7fd602983e8")
+	)
+	(fp_line
+		(start -1 0.8)
+		(end -1 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "1fe0b0b5-f015-4de5-a414-871182f72e9e")
+	)
+	(fp_line
+		(start 1 -0.8)
+		(end 1 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a3c1a668-e9ce-4d95-922f-4b714365b5ed")
+	)
+	(fp_line
+		(start 1 0.8)
+		(end -1 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ec99510f-b7e6-4976-b64e-016366548c87")
+	)
+	(pad "1" smd rect
+		(at -0.8 0)
+		(size 0.8 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "6ccbde67-4d90-4d37-aa63-fff485ee6129")
+	)
+	(pad "2" smd rect
+		(at 0.8 0)
+		(size 0.8 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "7f8397ea-0794-4748-999a-b423adb053f0")
+	)
+	(zone
+		(net 0)
+		(net_name "")
+		(layers "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
+		(uuid "d1ce87df-bdd8-4788-8272-5c7afaa1949e")
+		(name "under-coil")
+		(hatch edge 0.5)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.25)
+		(filled_areas_thickness no)
+		(keepout
+			(tracks not_allowed)
+			(vias not_allowed)
+			(pads allowed)
+			(copperpour not_allowed)
+			(footprints allowed)
+		)
+		(placement
+			(enabled no)
+			(sheetname "")
+		)
+		(fill
+			(thermal_gap 0.5)
+			(thermal_bridge_width 0.5)
+		)
+		(polygon
+			(pts
+				(xy -0.4 -0.8) (xy 0.4 -0.8) (xy 0.4 0.8) (xy -0.4 0.8)
+			)
+		)
+	)
+	(embedded_fonts no)
+)

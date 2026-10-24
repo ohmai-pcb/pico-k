@@ -1,0 +1,36 @@
+# TS-1187A-B-A-B (BOOTSEL switch SW1) constraints (DRAFT, agent-generated, not yet reviewed).
+# XKB drawing TS-1187A-X-X-X, sheet 1/1, revision A0 (single page, image only). Circuit from Hardware design with RP2350.
+schema: ohmai-constraints/v1
+part: TS-1187A-B-A-B
+mpn: TS-1187A-B-A-B
+manufacturer: XKB Connection
+package: SMD tact switch 5.1 x 5.1 mm, H 1.5 mm (height code A), 4 pads A-D
+match: {value: BOOTSEL, mpn: TS-1187A-B-A-B}
+datasheet:
+  file: datasheets/TS-1187A-B-A-B.pdf
+  revision: "Drawing TS-1187A-X-X-X, revision A0"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+abs_max:
+  - {param: Contact rating, max: 50, unit: mA, cite: {page: 1, where: SPECIFICATION}, note: "50 mA 12 V DC"}
+  - {param: Contact voltage, max: 12, unit: V, cite: {page: 1, where: SPECIFICATION}}
+  - {param: Storage temperature, min: -30, max: 80, unit: degC, cite: {page: 1, where: SPECIFICATION}, note: "as printed: storage max (80) below operating max (85), drawing quirk"}
+recommended:
+  - {param: Operating temperature, min: -30, max: 85, unit: degC, cite: {page: 1, where: SPECIFICATION}, note: "narrower than RP2350 -40 degC"}
+  - {param: Contact resistance, max: 100, unit: mohm, cite: {page: 1, where: SPECIFICATION}}
+  - {param: Operating force (code B), typ: 160, unit: gf, cite: {page: 1, where: "PART NO table"}, note: "TS-1187A-<force>-<height>-<keystake>: force B 160 gf, height A 1.5 mm, keystake B brass (PART NO table order); LCSC C318884 lists 1.6 N / 1.5 mm (2026-10-15)"}
+evb_reference: {document: "Hardware design with RP2350 Minimal Design: SW1 USB_BOOT between the 1 kOhm R6 (from QSPI_SS) and GND", cite: {page: 10, where: "§3.1 Primary flash, Fig. 8", doc: "hardware-design-with-rp2350.pdf"}}
+layout_notes:
+  - {text: "Use the drawing's P.C.B LAYOUT (pads at 7.0 x 3.0 mm / 5.0 x 4.5 mm spacing, top view)", cite: {page: 1, where: "P.C.B LAYOUT TOP VIEW"}}
+  - {text: "Place R1/R6 (QSPI_SS resistors) close to the flash, not near the switch; the switch end of R6 can be routed further away", cite: {page: 11, where: "§3.1", doc: "hardware-design-with-rp2350.pdf"}}
+open_questions:
+  - "Pad identity: the drawing labels terminals A, B, C, D with A-B connected and C-D connected, the switch between the pairs. Check the KiCad footprint pad names map the same way (A/B one side, C/D the other) so the switch is not shorted out."
+  - "Second source not named (P4-9 accepted single source for rev-A)."
+pins:
+  - {number: "A", name: A, direction: passive, cite: {page: 1, where: "schematic symbol A-B / C-D"}, note: "internally tied to B. Net: R6 end of the 1 kOhm from QSPI_SS (BOOTSEL)"}
+  - {number: "B", name: B, direction: passive, cite: {page: 1, where: "schematic symbol"}, note: "internally tied to A"}
+  - {number: "C", name: C, direction: passive, cite: {page: 1, where: "schematic symbol"}, note: "internally tied to D. Net: GND"}
+  - {number: "D", name: D, direction: passive, cite: {page: 1, where: "schematic symbol"}, note: "internally tied to C"}

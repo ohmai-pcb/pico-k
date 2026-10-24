@@ -1,0 +1,37 @@
+(version 1)
+# pico-k fab rules: JLCPCB multilayer (4L, 1.0 mm), from https://jlcpcb.com/capabilities/pcb-capabilities
+# (read 2026-10-15). Each rule names the capability-table row it comes from.
+
+(rule "JLC min track width 0.09 (multilayer), we use 0.1"
+  (constraint track_width (min 0.1mm)))
+(rule "JLC min spacing 0.09 (multilayer), we use 0.1"
+  (constraint clearance (min 0.1mm)))
+(rule "JLC via: min hole 0.15, preferred 0.2; via diameter >= hole + 0.1 (we use 0.45/0.2: no small-via surcharge)"
+  (constraint hole_size (min 0.2mm))
+  (constraint via_diameter (min 0.45mm)))
+(rule "JLC PTH annular ring 0.15 min (0.2 recommended); vias 0.125"
+  (condition "A.Type == 'Via'")
+  (constraint annular_width (min 0.125mm)))
+(rule "JLC hole to hole 0.5 (different nets), 0.2 via to via same net"
+  (constraint hole_to_hole (min 0.25mm)))
+(rule "JLC copper to board outline 0.2 (routed edge); castellated pads exempt"
+  (condition "!A.hasProperty('castellated') && A.Pad_Property != 'Castellated pad'")
+  (constraint edge_clearance (min 0.2mm)))
+(rule "JLC castellated hole: diameter >= 0.5"
+  (condition "A.Pad_Property == 'Castellated pad'")
+  (constraint hole_size (min 0.5mm)))
+(rule "JLC NPTH min 0.5; NPTH to track 0.2"
+  (condition "A.Type == 'Pad' && A.Pad_Type == 'NPTH, mechanical'")
+  (constraint hole_clearance (min 0.2mm)))
+(rule "JLC PTH to track 0.28 (plated holes of pads)"
+  (condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole' && B.Type == 'Track'")
+  (constraint hole_clearance (min 0.28mm)))
+(rule "JLC silkscreen min line 0.15, min text height 1.0 (0.8 accepted for low-contrast notes: ESTIMATE, check)"
+  (layer "?.Silkscreen")
+  (constraint text_height (min 0.8mm))
+  (constraint text_thickness (min 0.15mm)))
+# JLC "pad to silkscreen 0.15": KiCad checks silk on exposed copper as silk_over_copper (the fab clips silk from
+# pads); silk_clearance stays at the board default (silk to silk / edge).
+(rule "QFN-60 0.4 mm pitch fanout: 0.1 clearance pad-to-track (JLC pad to track 0.1)"
+  (condition "A.insideCourtyard('U1') || B.insideCourtyard('U1')")
+  (constraint clearance (min 0.1mm)))

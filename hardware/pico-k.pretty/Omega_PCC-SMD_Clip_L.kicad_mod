@@ -1,0 +1,299 @@
+(footprint "Omega_PCC-SMD_Clip_L"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Omega PCC-SMD mini thermocouple clip, left (-, T-) of the pair. Origin = pair centreline at the board edge. Dimensions: Omega PCC-SMD spec sheet p.2 BARE PCB (pad x 1.60-5.87 y 0.50-9.50; tab x 5.87-7.21 y 2.84-7.16; plated side slot x 6.09-6.70 y 3.38-6.63; rear slot x 2.09-5.70 y 9.77-11.27 R0.40, non-plated) and SOLDER PASTE PROFILE p.2. Polarity per D-009: seen from the top with this edge toward the viewer, + is on the right.")
+	(tags "thermocouple connector PCC-SMD omega")
+	(property "Reference" "REF**"
+		(at -3.7 -12.3 0)
+		(layer "F.SilkS")
+		(uuid "420760d1-a977-4b31-a1f6-7bf4bc83b56f")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Value" "PCC-SMD -"
+		(at -3.7 -5 0)
+		(layer "F.Fab")
+		(uuid "6393b347-6213-4a43-8863-466429c5b052")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.09)
+			)
+		)
+	)
+	(property "Datasheet" "datasheets/PCC-SMD.pdf p.2"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "67ee8aa1-54f3-4f60-a881-efe5c5a32b3d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c06ac5d2-e66c-4ef1-b16b-829787151c1a")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -5.7 -10.17)
+		(end -5.7 -10.87)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "8adc8b54-5234-43cf-9908-b9b76aedabef")
+	)
+	(fp_line
+		(start -5.3 -11.27)
+		(end -2.49 -11.27)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "76e2abf3-821d-4812-9f94-243983459b81")
+	)
+	(fp_line
+		(start -2.49 -9.77)
+		(end -5.3 -9.77)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "5ed4b782-56c3-4080-ad05-c5e30d9fe119")
+	)
+	(fp_line
+		(start -2.09 -10.87)
+		(end -2.09 -10.17)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "1301c919-28ac-4761-ab66-4896f8e65aff")
+	)
+	(fp_arc
+		(start -5.7 -10.87)
+		(mid -5.5828 -11.1528)
+		(end -5.3 -11.27)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "9466c8bc-56e0-443c-92ec-119c08da763a")
+	)
+	(fp_arc
+		(start -5.3 -9.77)
+		(mid -5.5828 -9.8872)
+		(end -5.7 -10.17)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "91623dab-8ae3-4a41-80ad-e7375d3cc371")
+	)
+	(fp_arc
+		(start -2.49 -11.27)
+		(mid -2.2072 -11.1528)
+		(end -2.09 -10.87)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "8bdfc021-7fb4-4e00-8b05-99b60c34ea3f")
+	)
+	(fp_arc
+		(start -2.09 -10.17)
+		(mid -2.2072 -9.8872)
+		(end -2.49 -9.77)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "Edge.Cuts")
+		(uuid "23d844d8-aa44-4a62-b091-d74243fda948")
+	)
+	(fp_line
+		(start -7.46 -11.52)
+		(end -7.46 2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "e873a4d6-14ab-4e3a-8867-83d9bca2acb0")
+	)
+	(fp_line
+		(start -7.46 2.6)
+		(end -1.35 2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "d73f99b9-8980-4696-9b81-0b07b821ff07")
+	)
+	(fp_line
+		(start -1.35 -11.52)
+		(end -7.46 -11.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "0014733f-1f65-4293-a2d7-5a1e394e1477")
+	)
+	(fp_line
+		(start -1.35 2.6)
+		(end -1.35 -11.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "40a1159a-7452-4812-99e6-30aa7dd84fc5")
+	)
+	(fp_line
+		(start -7.21 -9.51)
+		(end -7.21 2.43)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ef954ba7-6a63-4e43-b83a-4042e7efee14")
+	)
+	(fp_line
+		(start -7.21 2.43)
+		(end -1.6 2.43)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "381f96f6-0a36-4e85-90ba-60b418ed85e4")
+	)
+	(fp_line
+		(start -1.6 -9.51)
+		(end -7.21 -9.51)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "97fc9630-22a1-4832-9ec0-9bcdd76f5f09")
+	)
+	(fp_line
+		(start -1.6 2.43)
+		(end -1.6 -9.51)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "635b5efb-653e-4911-9524-28ca7a24b1d0")
+	)
+	(fp_text user "-"
+		(at -6.6 -10.5 0)
+		(layer "F.SilkS")
+		(uuid "8e7a5a60-3730-48e2-99e2-c3e6a191074b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" smd rect
+		(at -5.185 -6)
+		(size 2.7 1.5)
+		(layers "F.Paste")
+		(uuid "ed32d974-bac0-4731-b378-fa7c4720dbbf")
+	)
+	(pad "" smd rect
+		(at -5.185 -4)
+		(size 2.7 1.5)
+		(layers "F.Paste")
+		(uuid "ab26af1d-12be-4684-b6ea-e0eec07ec7cf")
+	)
+	(pad "" smd rect
+		(at -4.81 -8.225)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "03bd308f-b8a2-4e0f-b9d4-3e34ba4523a6")
+	)
+	(pad "" smd rect
+		(at -4.81 -1.775)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "a8e5c3e5-3c77-4dad-bd25-dfd27c50b26e")
+	)
+	(pad "" smd rect
+		(at -2.66 -8.225)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "e5515a65-aa74-4f75-b7c2-7a1731c259f7")
+	)
+	(pad "" smd rect
+		(at -2.66 -6)
+		(size 1.65 1.5)
+		(layers "F.Paste")
+		(uuid "9afc4aa3-a598-41f0-bb16-7e0152fa4d1a")
+	)
+	(pad "" smd rect
+		(at -2.66 -4)
+		(size 1.65 1.5)
+		(layers "F.Paste")
+		(uuid "99c778ae-8bec-41e0-ac7c-5531239b140e")
+	)
+	(pad "" smd rect
+		(at -2.66 -1.775)
+		(size 1.95 1.65)
+		(layers "F.Paste")
+		(uuid "e65cd2bf-2708-4a8f-9465-3867e656fa45")
+	)
+	(pad "1" smd rect
+		(at -6.54 -5)
+		(size 1.34 4.32)
+		(layers "F.Cu" "F.Mask")
+		(uuid "75fa9328-65af-42da-bd06-7cc208e6fb27")
+	)
+	(pad "1" thru_hole oval
+		(at -6.395 -5.005)
+		(size 0.91 3.55)
+		(drill oval 0.61 3.25)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "9b783299-c583-49e3-b356-5b7e737cebbf")
+	)
+	(pad "1" smd rect
+		(at -3.735 -5)
+		(size 4.27 9)
+		(layers "F.Cu" "F.Mask")
+		(uuid "e9ba6aa6-0bf1-4d52-b767-dc64d166ffa9")
+	)
+	(embedded_fonts no)
+)

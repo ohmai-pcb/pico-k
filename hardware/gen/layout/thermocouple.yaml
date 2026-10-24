@@ -1,0 +1,56 @@
+# Block 4: thermocouple front end. Reference figure: MAX31856 datasheet Fig. 8 (typical application
+# circuit, p.27) - input RC filter (R12/R13 series, C14 differential, C25/C26 common mode), BIAS to T-.
+title: "4 thermocouple front end (MAX31856 Fig. 8)"
+paper: A4
+parts:
+  JP1: {lib: "Jumper:SolderJumper_2_Bridged", value: "cut to free GP12", fp: "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm", bom: false, nets: {"1": GP12, "2": TC_SDO}}
+  JP2: {lib: "Jumper:SolderJumper_2_Bridged", value: "cut to free GP13", fp: "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm", bom: false, nets: {"1": GP13, "2": TC_CS}}
+  JP3: {lib: "Jumper:SolderJumper_2_Bridged", value: "cut to free GP14", fp: "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm", bom: false, nets: {"1": GP14, "2": TC_SCK}}
+  JP4: {lib: "Jumper:SolderJumper_2_Bridged", value: "cut to free GP15", fp: "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm", bom: false, nets: {"1": GP15, "2": TC_SDI}}
+  R7: {lib: "Device:R", value: "10k", mpn: "0402WGF1002TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": TC_CS, "2": 3V3}}
+  U5: {lib: "Sensor_Temperature:MAX31856", value: MAX31856, fp: "Package_SO:TSSOP-14_4.4x5mm_P0.65mm", mpn: MAX31856MUD+T, nets: {"1": GND, "2": TC_N, "3": TC_IN_N, "4": TC_IN_P, "5": 3V3, "6": NC, "7": TC_DRDY, "8": 3V3, "9": TC_CS, "10": TC_SCK, "11": TC_SDO, "12": TC_SDI, "13": TC_FAULT, "14": GND}}
+  C12: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  C13: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": 3V3, "2": GND}}
+  R12: {lib: "Device:R", value: "100", mpn: "0402WGF1000TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": TC_P, "2": TC_IN_P}}
+  R13: {lib: "Device:R", value: "100", mpn: "0402WGF1000TCE", fp: "Resistor_SMD:R_0402_1005Metric", nets: {"1": TC_N, "2": TC_IN_N}}
+  C14: {lib: "Device:C", value: "100n", mpn: CL05B104KO5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": TC_IN_P, "2": TC_IN_N}}
+  C25: {lib: "Device:C", value: "10n", mpn: CL05B103KB5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": TC_IN_P, "2": GND}}
+  C26: {lib: "Device:C", value: "10n", mpn: CL05B103KB5NNNC, fp: "Capacitor_SMD:C_0402_1005Metric", nets: {"1": TC_IN_N, "2": GND}}
+  R23: {lib: "Device:R", value: "10k", mpn: "0402WGF1002TCE", fp: "Resistor_SMD:R_0402_1005Metric", dnp: true, nets: {"1": TC_DRDY, "2": 3V3}}
+  R24: {lib: "Device:R", value: "10k", mpn: "0402WGF1002TCE", fp: "Resistor_SMD:R_0402_1005Metric", dnp: true, nets: {"1": TC_FAULT, "2": 3V3}}
+  TP11: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": TC_DRDY}}
+  TP12: {lib: "Connector:TestPoint", value: TestPoint, fp: "pico-k:TestPoint_Pico2_1.5x1.5mm", bom: false, nets: {"1": TC_FAULT}}
+  J2: {lib: "Connector_Generic:Conn_01x01", value: "T+ clip", fp: "pico-k:Omega_PCC-SMD_Clip_R", mpn: PCC-SMD, nets: {"1": TC_P}}
+  J3: {lib: "Connector_Generic:Conn_01x01", value: "T- clip", fp: "pico-k:Omega_PCC-SMD_Clip_L", mpn: PCC-SMD, nets: {"1": TC_N}}
+place:
+  - {ref: U5, at: [190.5, 114.3]}
+  # T- input: U5.3 -> R13 -> J3 (TC_N); C26 to GND on TC_IN_N
+  - {ref: R13, to: U5.3, at: [-25.4, 0], orient: h}
+  - {ref: J3, to: R13.1, at: [-5.08, 0], pin: "1", rot: 180}
+  - {ref: C26, to: U5.3, from: [-22.86, 0], at: [0, 0], orient: v, near: top}
+  # T+ input: U5.4 jogs up to the TC_IN_P rail -> R12 -> J2 (TC_P); C14 across, C25 to GND
+  - {ref: R12, to: U5.4, at: [-25.4, -12.7], orient: h, route: [[-5.08, 0], [-5.08, -12.7]]}
+  - {ref: J2, to: R12.1, at: [-5.08, 0], pin: "1", rot: 180}
+  - {ref: C14, to: U5.4, from: [-12.7, -12.7], at: [0, 0], orient: v, near: top}
+  - {tap: C14.2, at: [0, 7.62]}
+  - {ref: C25, to: U5.4, from: [-22.86, -12.7], at: [0, 0], orient: v, near: top}
+  # BIAS (TC_N) to T- at the clip, under the filter
+  - {tap: U5.2, at: [-35.56, -2.54], route: [[-2.54, 0], [-2.54, 12.7], [-35.56, 12.7]]}
+  # supplies: one 100 nF per supply pin, next to the pin
+  - {ref: C12, to: U5.5, at: [-7.62, -12.7], orient: v, near: top}
+  - {ref: C13, to: U5.8, at: [5.08, -12.7], orient: v, near: top}
+  - {wire: [U5.1, U5.14]}
+  # DRDY / FAULT: optional pull-ups (DNP) and test pads
+  - {ref: R23, to: U5.7, at: [7.62, -15.24], orient: v, near: bottom, route: [[2.54, 0], [2.54, -15.24]]}
+  - {ref: TP11, to: R23.1, at: [7.62, 0], pin: "1", rot: 0, text: right, hide_value: true}
+  - {ref: R24, to: U5.13, at: [25.4, -12.7], orient: v, near: bottom, route: [[5.08, 0], [5.08, -12.7]]}   # clear of R7's 3V3 (readability)
+  - {ref: TP12, to: R24.1, at: [7.62, 0], pin: "1", rot: 0, text: right, hide_value: true}
+  # SPI: fan out to 7.62 mm pitch, cut-jumpers to the GP12..GP15 ports; CS pull-up
+  - {ref: JP2, text: below, to: U5.9, at: [27.94, 0], orient: h, near: left}
+  - {ref: R7, to: U5.9, from: [10.16, 0], at: [0, 0], orient: v, near: bottom}
+  - {ref: JP3, text: below, to: U5.10, at: [27.94, 5.08], orient: h, near: left, route: [[7.62, 0], [7.62, 5.08]]}
+  - {ref: JP1, text: below, to: U5.11, at: [27.94, 10.16], orient: h, near: left, route: [[5.08, 0], [5.08, 10.16]]}
+  - {ref: JP4, text: below, to: U5.12, at: [27.94, 15.24], orient: h, near: left, route: [[2.54, 0], [2.54, 15.24]]}
+symbols:
+  - {to: C12.1, side: up}
+  - {to: C13.1, side: up}

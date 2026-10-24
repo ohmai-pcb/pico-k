@@ -1,0 +1,104 @@
+(footprint "TestPoint_Pico2_1.5x1.5mm"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Pico 2 test pad 1.5 x 1.5 mm, 0.3 mm corner radius (Pico 2 datasheet Fig. 5 p.10). Placed on the bottom side.")
+	(tags "test point pico")
+	(property "Reference" "REF**"
+		(at 0 -1.4 0)
+		(layer "F.SilkS")
+		(uuid "4842700b-716b-4c6d-99a4-316a9d0c0f20")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.09)
+			)
+		)
+	)
+	(property "Value" "TP"
+		(at 0 1.4 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b7271ea7-3e1f-4e92-b309-bb8c56ab400c")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.09)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "29f9727c-0bf5-48ee-b81a-9406093d1355")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "231fcd8d-8310-4317-bcf2-11dec70a2dcf")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -1 -1)
+		(end 1 -1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "03aeb89e-866b-44d5-9000-3d1e902424ee")
+	)
+	(fp_line
+		(start -1 1)
+		(end -1 -1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "049cbd66-e93a-4382-ace5-ca9f498f4776")
+	)
+	(fp_line
+		(start 1 -1)
+		(end 1 1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "46228c15-1e19-4f53-be49-6947ddc3f273")
+	)
+	(fp_line
+		(start 1 1)
+		(end -1 1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "403d5660-e9f7-4166-b7df-2a1f6919be0b")
+	)
+	(pad "1" smd roundrect
+		(at 0 0)
+		(size 1.5 1.5)
+		(layers "F.Cu" "F.Mask")
+		(roundrect_rratio 0.2)
+		(uuid "adbe7f1a-3897-44ca-b872-23451e2e554d")
+	)
+	(embedded_fonts no)
+)

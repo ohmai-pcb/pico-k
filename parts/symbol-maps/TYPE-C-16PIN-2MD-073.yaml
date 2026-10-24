@@ -1,0 +1,8 @@
+# Symbol map: KiCad Connector:USB_C_Receptacle_USB2.0_16P -> TYPE-C-16PIN-2MD-073 drawing p.1 (D-012 P7-4).
+symbol: "Connector:USB_C_Receptacle_USB2.0_16P"
+pins:
+  "A6": {datasheet: "A6", symbol_name: D+, cite: {page: 1, where: "PIN ASSIGNMENTS DP1"}}
+  "B6": {datasheet: "B6", symbol_name: D+, cite: {page: 1, where: "PIN ASSIGNMENTS DP2"}}
+  "A7": {datasheet: "A7", symbol_name: D-, cite: {page: 1, where: "PIN ASSIGNMENTS DN1"}}
+  "B7": {datasheet: "B7", symbol_name: D-, cite: {page: 1, where: "PIN ASSIGNMENTS DN2"}}
+  "S1": {datasheet: "SH", symbol_name: SHIELD, cite: {page: 1, where: "drawing, front shell tabs"}}

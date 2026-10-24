@@ -1,0 +1,5 @@
+# Symbol map: KiCad Switch:SW_Push -> TS-1187A-B-A-B p.1 schematic symbol (A-B tied, C-D tied) (D-012 P7-4).
+symbol: "Switch:SW_Push"
+pins:
+  "1": {datasheet: ["A", "B"], symbol_name: "1", cite: {page: 1}}
+  "2": {datasheet: ["C", "D"], symbol_name: "2", cite: {page: 1}}

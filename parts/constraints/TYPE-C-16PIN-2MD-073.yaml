@@ -1,0 +1,53 @@
+# USB-C receptacle constraints (DRAFT, agent-generated, not yet reviewed).
+# Main part (D-006, P4-6 option A): SHOU HAN TYPE-C 16PIN 2MD(073), LCSC C2765186. The drawing pages carry no
+# printed numbers; page = page of datasheets/TYPE-C-16PIN-2MD-073.pdf. Alternate: Korean Hroparts TYPE-C-31-M-12
+# (LCSC C165948, datasheets/TYPE-C-31-M-12.pdf, image-only drawing) - same signal list per its pin table.
+# Pin use from USB Type-C Cable and Connector Specification Release 2.0 (Aug 2019, datasheets/USB-Type-C-Spec-R2.0.pdf).
+schema: ohmai-constraints/v1
+part: TYPE-C-16PIN-2MD-073
+mpn: TYPE-C 16PIN 2MD(073)
+manufacturer: SHOU HAN (Shenzhen Shouhan Technology)
+package: USB Type-C receptacle, 16-pin USB 2.0, SMD + 4 shell tabs
+match: {value: USB-C, mpn: TYPE-C 16PIN 2MD(073)}
+datasheet:
+  file: datasheets/TYPE-C-16PIN-2MD-073.pdf
+  revision: "Drawing TYPE-C 16PIN 2MD(073), rev A (customer copy)"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+recommended:
+  - {param: Current rating, max: 3, unit: A, cite: {page: 1, where: "drawing note 4-1"}}
+  - {param: Voltage rating, max: 5, unit: V, cite: {page: 1, where: "drawing note 4-1"}, note: "rated DC 5 V 3 A (spec p.3)"}
+  - {param: Operating temperature, min: -25, max: 85, unit: degC, cite: {page: 1, where: "drawing note 5"}, note: "spec p.3 same; covers the board default range -20..+85 degC (STATUS open question)"}
+  - {param: Contact resistance VBUS/GND and other pins, max: 40, unit: mohm, cite: {page: 1, where: "drawing note 4-2"}}
+  - {param: Contact resistance SHIELD, max: 50, unit: mohm, cite: {page: 1, where: "drawing note 4-2"}}
+  - {param: Recommended PCB thickness, typ: 0.8, unit: mm, cite: {page: 1, where: "RECOMMENDED PCB LAYOUT (TOP VIEW)"}, note: "pico-k board is 1.0 mm: tab tips up to 0.2 mm below the bottom accepted (D-006, P4-6 A)"}
+layout_notes:
+  - {text: "Bus all VBUS contacts together and all GND contacts together on the PCB at the receptacle", cite: {page: 69, where: "Table 3-5 notes 4/5", doc: "USB-Type-C-Spec-R2.0.pdf"}}
+  - {text: "Dp1/Dp2 and Dn1/Dn2 may be shorted close to the receptacle; shorting trace (stub) <= 3.5 mm", cite: {page: 69, where: "Table 3-5 note 2", doc: "USB-Type-C-Spec-R2.0.pdf"}}
+  - {text: "Use the drawing's recommended land pattern (0.30 mm signal pads at 0.50 mm pitch, 4 slotted shell holes)", cite: {page: 1, where: "RECOMMENDED PCB LAYOUT"}}
+open_questions:
+  - "Shell (4 tabs): the drawing gives no electrical function. Pico 2 / RPi minimal design tie the connector shield to GND; RESOLVED D-007 (P5-7, owner 2026-10-15): shell directly to GND via the 4 tab pads (no RC)."
+  - "Pad numbering in the footprint: A/B contact pairs share one pad (A1/B12, A4/B9, A9/B4, A12/B1). Make sure the KiCad footprint pad names match these pin numbers (phase 6/7)."
+pins:
+  - {number: "A1", name: GND, direction: ground, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "shares a pad with B12"}
+  - {number: "B12", name: GND, direction: ground, cite: {page: 1, where: "PIN ASSIGNMENTS"}}
+  - {number: "A4", name: VBUS, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "bus power from the host; shares a pad with B9. To VBUS net (ESD U4 pin 5, D1 anode, C19)"}
+  - {number: "B9", name: VBUS, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}}
+  - {number: "A5", name: CC1, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "configuration channel 1; own Rd, never tie CC1 to CC2",
+     required_external: [{kind: resistor, to: GND, nominal: 5.1, min: 4.59, max: 5.61, unit: kohm, cite: {page: 236, where: "Table 4-25 Sink CC Termination (Rd)", doc: "USB-Type-C-Spec-R2.0.pdf"}, note: "±10 % for detecting source current; pico-k R10 (1 %)"}]}
+  - {number: "B5", name: CC2, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "configuration channel 2",
+     required_external: [{kind: resistor, to: GND, nominal: 5.1, min: 4.59, max: 5.61, unit: kohm, cite: {page: 236, where: "Table 4-25", doc: "USB-Type-C-Spec-R2.0.pdf"}, note: "pico-k R11 (1 %)"}]}
+  - {number: "A6", name: DP1, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "D+ position 1; join to B6 (stub <= 3.5 mm), then ESD -> 27 ohm -> RP2350 USB_DP"}
+  - {number: "B6", name: DP2, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}}
+  - {number: "A7", name: DN1, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "D- position 1; join to B7"}
+  - {number: "B7", name: DN2, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}}
+  - {number: "A8", name: SBU1, direction: nc, nc: true, cite: {page: 69, where: "Table 3-5 note 3", doc: "USB-Type-C-Spec-R2.0.pdf"}, note: "shall be not connected (no SBU use)"}
+  - {number: "B8", name: SBU2, direction: nc, nc: true, cite: {page: 69, where: "Table 3-5 note 3", doc: "USB-Type-C-Spec-R2.0.pdf"}}
+  - {number: "A9", name: VBUS, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "shares a pad with B4"}
+  - {number: "B4", name: VBUS, direction: passive, cite: {page: 1, where: "PIN ASSIGNMENTS"}}
+  - {number: "A12", name: GND, direction: ground, cite: {page: 1, where: "PIN ASSIGNMENTS"}, note: "shares a pad with B1"}
+  - {number: "B1", name: GND, direction: ground, cite: {page: 1, where: "PIN ASSIGNMENTS"}}
+  - {number: "SH", name: SHELL, direction: ground, cite: {page: 1, where: "drawing (front shell, 4 tabs)"}, note: "stainless steel front shell, 4 through-slot tabs; electrical connection not specified by the drawing; tied to GND via the 4 tab pads, owner decision D-007 (P5-7)"}

@@ -1,0 +1,5 @@
+# Symbol map: KiCad Memory_Flash:W25Q32JVZP (accepted stand-in, D-012 P7-2) -> W25Q32RVXHJQ §3.3 p.5.
+symbol: "Memory_Flash:W25Q32JVZP"
+pins:
+  "4": {datasheet: "4", symbol_name: GND, cite: {page: 5, where: "§3.3 VSS"}}
+  "7": {datasheet: "7", symbol_name: "~{HOLD}/~{RESET}/IO_{3}", cite: {page: 5, where: "§3.3 /HOLD or /RESET (IO3)"}}

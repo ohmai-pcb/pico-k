@@ -1,0 +1,5 @@
+# Symbol map: KiCad Connector_Generic:Conn_01x01, one per clip (D-012 P7-1): J2 = T+ clip, J3 = T- clip.
+# Omega PCC-SMD p.1: one contact per clip. Custom footprint from the p.2 drawing is a phase 8 item.
+symbol: "Connector_Generic:Conn_01x01"
+pins:
+  "1": {datasheet: "1", symbol_name: Pin_1, cite: {page: 1, where: "CONTACT"}}

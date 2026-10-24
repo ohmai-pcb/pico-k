@@ -1,0 +1,5 @@
+# Symbol map: KiCad Regulator_Switching:TPS63001 -> TPS63001DRCR (D-012 P7-4).
+# SLVS520C p.3 pin functions: the exposed thermal pad (11) is connected to PGND; KiCad names pin 11 PGND.
+symbol: "Regulator_Switching:TPS63001"
+pins:
+  "11": {datasheet: "11", symbol_name: PGND, cite: {page: 3, where: "PowerPAD"}}

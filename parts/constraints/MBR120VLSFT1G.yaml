@@ -1,0 +1,35 @@
+# MBR120VLSFT1G (D1, VBUS -> VSYS Schottky) constraints (DRAFT, agent-generated, not yet reviewed).
+# onsemi MBR120VLSFT1/D Rev. 4 (October 2014); case outline 98AON11184D (SOD-123FL) on p.5. Same role as Pico 2 D1.
+schema: ohmai-constraints/v1
+part: MBR120VLSFT1G
+mpn: MBR120VLSFT1G
+manufacturer: onsemi
+package: SOD-123FL (case 498)
+match: {value: MBR120VLSFT1G, mpn: MBR120VLSFT1G}
+datasheet:
+  file: datasheets/MBR120VLSFT1G.pdf
+  revision: "MBR120VLSFT1/D Rev. 4, October 2014"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+abs_max:
+  - {param: Peak repetitive / DC blocking reverse voltage, max: 20, unit: V, cite: {page: 2, where: "MAXIMUM RATINGS"}}
+  - {param: Average rectified forward current (TL = 119 degC), max: 1.0, unit: A, cite: {page: 2, where: "MAXIMUM RATINGS"}}
+  - {param: Non-repetitive peak surge current, max: 45, unit: A, cite: {page: 2, where: "MAXIMUM RATINGS"}}
+  - {param: Operating junction temperature, min: -65, max: 125, unit: degC, cite: {page: 2, where: "MAXIMUM RATINGS"}}
+  - {param: Storage temperature, min: -65, max: 125, unit: degC, cite: {page: 2, where: "MAXIMUM RATINGS"}}
+recommended:
+  - {param: "VF max at 0.5 A, 25 degC", max: 0.315, unit: V, cite: {page: 2, where: "ELECTRICAL CHARACTERISTICS"}}
+  - {param: "VF max at 0.1 A, 25 degC", max: 0.275, unit: V, cite: {page: 2, where: "ELECTRICAL CHARACTERISTICS"}}
+  - {param: "IR max at rated VR, 25 degC", max: 0.60, unit: mA, cite: {page: 2, where: "ELECTRICAL CHARACTERISTICS"}, note: "15 mA at 85 degC; back-feeds VBUS when VSYS is powered externally"}
+  - {param: Thermal resistance junction-ambient (min pad), typ: 325, unit: degC/W, cite: {page: 2, where: "THERMAL CHARACTERISTICS"}, note: "82 degC/W with 700 mm2 copper"}
+layout_notes:
+  - {text: "Use the recommended soldering footprint (2 x 1.25 x 1.22 mm pads, 4.20 mm overall)", cite: {page: 5, where: "RECOMMENDED SOLDERING FOOTPRINT"}}
+  - {text: "Add copper on the pads if D1 dissipation matters: RthJA 325 degC/W at minimum pad vs 82 degC/W with 700 mm2 (ESTIMATE 0.1 W worst case -> ~33 degC rise at minimum pad)", cite: {page: 2, where: "THERMAL CHARACTERISTICS"}}
+open_questions:
+  - "Pin numbers: the case outline (p.5) numbers the terminals 1 and 2 and puts the optional polarity indicator at pin 1; p.1 says 'Polarity Designator: Cathode Band'. So pin 1 = cathode, pin 2 = anode. Confirm against the footprint."
+pins:
+  - {number: "1", name: K, direction: passive, cite: {page: 5, where: "case outline TOP VIEW, polarity indicator at pin 1"}, abs_max: {max: 20, unit: V, cite: {page: 2}, note: "reverse voltage"}, note: "cathode (band) -> VSYS"}
+  - {number: "2", name: A, direction: passive, cite: {page: 5, where: "case outline TOP VIEW"}, note: "anode <- VBUS (connector side)"}

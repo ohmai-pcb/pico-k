@@ -1,0 +1,46 @@
+# MPL-AT2512-3R3 constraints (DRAFT, agent-generated, not yet reviewed).
+# Core-regulator inductor L1, accepted by the owner D-007 (P4-4b, 2026-10-15); was candidate for P4-4b (owner correction 2026-10-15: replace AOTA-B201610S3R3-101-T).
+# Requirements from RP2350 Datasheet (build 2025-07-29) §6.3.8 p.452-457 and Hardware design with RP2350 p.6-7.
+# Named second source: MPL-AL4020-3R3 (MPS, Rev. 1.1, datasheets/MPL-AL4020-3R3.pdf; 4.1 x 4.1 mm, own footprint).
+schema: ohmai-constraints/v1
+part: MPL-AT2512-3R3
+mpn: MPL-AT2512-3R3
+manufacturer: Monolithic Power Systems
+package: SMD 2.5 x 2.0 x 1.2 mm max, 2 terminals (MPS land pattern 2.90 x 2.30 mm)
+match: {value: 3.3uH, mpn: MPL-AT2512-3R3}
+datasheet:
+  file: datasheets/MPL-AT2512-3R3.pdf
+  revision: "Rev. 1.2, 7/6/2023"
+review:
+  status: reviewed
+  reviewer: "Reviewer-A (independent agent review delegated by the owner, D-007 P5-1; reviews/constraints/reviewer-a.md, files_hash c9a92462...bfd1)"
+  date: '2026-10-15'
+  notes: "Pass with nits after re-verification 2; nits N1-N3 fixed post-review (reviews/constraints/resolutions.md). Status set on owner instruction, D-011."
+abs_max:
+  - {param: Operating temperature (including self-heating), min: -40, max: 125, unit: degC, cite: {page: 1, where: "GENERAL SPECIFICATIONS, Operating Condition"}}
+recommended:
+  - {param: "Inductance (100 kHz, 100 mA)", typ: 3.3, min: 2.64, max: 3.96, unit: uH, cite: {page: 1, where: "ELECTRICAL CHARACTERISTICS"}, note: "±20 %; RP2350 needs 3.3 uH ±20 % (RP2350A.pdf p.455) - met"}
+  - {param: DCR, typ: 116, max: 140, unit: mohm, cite: {page: 1, where: "ELECTRICAL CHARACTERISTICS"}, note: "RP2350 max 250 mOhm (p.455) - met"}
+  - {param: Saturation current 25 degC (30 % L drop), typ: 3, unit: A, cite: {page: 1, where: "ELECTRICAL CHARACTERISTICS"}, note: "RP2350 needs >= 1.5 A (p.455); MPS gives typ only, no min"}
+  - {param: Saturation current 100 degC (30 % L drop), typ: 3, unit: A, cite: {page: 1, where: "ELECTRICAL CHARACTERISTICS"}}
+  - {param: Rated current (dT 40 K), typ: 2.2, unit: A, cite: {page: 1, where: "ELECTRICAL CHARACTERISTICS"}, note: "VREG_LX max 200 mA (RP2350A.pdf p.17)"}
+  - {param: Self-resonant frequency, typ: 36, unit: MHz, cite: {page: 1, where: "ELECTRICAL CHARACTERISTICS"}}
+evb_reference: {document: "No MPS EVB. Reference circuit is RP2350 Fig. 22/23 with AOTA-B201610S3R3-101-T (2.0 x 1.6 mm); the MPS part is 2.5 x 2.0 mm, so the Pico 2 layout cannot be copied 1:1", cite: {page: 453, where: "Fig. 22", doc: "RP2350A.pdf"}}
+layout_notes:
+  - {text: "Top marking dot = start of winding. Orient every L1 the same way and use the dot as the polarity mark that RPi requires (Fig. 23/25 orientation indicator)", cite: {page: 3, where: "TOP MARKING"}}
+  - {text: "RPi: inductor must be marked for polarity and placed as in Fig. 23; a 'wrong way round' inductor's leakage field couples into the VREG_LX/L/COUT loop and upsets the regulator, especially at high load and load transients", cite: {page: 456, where: "§6.3.8.3", doc: "RP2350A.pdf"}}
+  - {text: "Cut copper under the inductor (top) and on layer 2 under L_X/VREG_LX; C_IN/L_X/C_OUT on the same side as RP2350", cite: {page: 454, where: "§6.3.8.1 (top layer); layer-2 rule and Fig. 24 on p.455", doc: "RP2350A.pdf"}}
+  - {text: "RPi orientation reference (AOTA, Fig. 25): current enters at '+', the orientation indicator is at the '-' (current-out) end; in the buck (Fig. 22/23) DC current flows VREG_LX -> L -> VOUT/C_OUT, so the AOTA indicator sits at the VOUT/DVDD end. Rev-A builds (D-007): build A 'MPS dot at VREG_LX', build B 'MPS dot at VOUT'; measure DVDD ripple, load step and efficiency against this reference", cite: {page: 456, where: "Fig. 25; Fig. 23 p.454", doc: "RP2350A.pdf"}}
+  - {text: "Use the MPS recommended land pattern (2.90 x 2.30 mm overall, 0.50 mm gap)", cite: {page: 3, where: "RECOMMENDED LAND PATTERN"}}
+open_questions:
+  - "P4-4b RESOLVED D-007 (owner 2026-10-15): MPL-AT2512-3R3 accepted as L1 (bom.csv approved), second source MPL-AL4020-3R3; D-006 amendment final."
+  - "Shielding: RPi requires 'fully shielded' (p.455). MPS calls the part 'molded' (metal-composite) but does not state 'shielded'. RESOLVED D-009 (owner, P5-13; amends D-007): L1 is a documented rev-A deviation, not an equivalent part (HDG p.6-7 'at your own risk'); reference part AOTA-B201610S3R3-101-T; rev-A built with both orientations; the external 1.1 V DVDD route (RP2350 Fig. 21 p.452) is kept as a DNF fallback footprint."
+  - "Orientation: the AOTA mark (Fig. 25 p.456) is tied to current/field direction; the MPS dot only marks the start of winding. Whether 'dot at VREG_LX' or 'dot at DVDD' matches the RPi orientation is unknown (winding sense). Owner decision D-007: rev-A is built with both orientations; measure DVDD ripple and load-step response, then fix the orientation."
+  - "Isat >= 1.5 A is met only by a typical value (3 A typ). Low roll-off ('generally the higher Isat the better', p.456) is plausible from the L vs I curve (p.2), not guaranteed."
+  - "Second source MPL-AL4020-3R3 (4.1 x 4.1 mm, DCR 38.4 mOhm max, Isat 5.2 A typ, dot = start of winding) needs its own footprint and a different regulator layout; JLC stock was 16 (2026-10-15)."
+  - "Fallback if both fail (D-009: DNF footprint on rev-A): external 1.1 V DVDD with the internal regulator unused (RP2350 Fig. 21 p.452: VREG_FB to GND, no inductor, VREG_VIN/VREG_AVDD still powered)."
+pins:
+  - {number: "1", name: "DOT (start of winding)", direction: passive, cite: {page: 3, where: "TOP MARKING"},
+     note: "terminal at the dot. Connect to RP2350 VREG_LX (pin 48) OR to DVDD/C_OUT - orientation open (see open questions). Pin numbering 1 = dot is assigned here, MPS does not number the terminals"}
+  - {number: "2", name: "END (end of winding)", direction: passive, cite: {page: 3, where: "DIMENSIONS"},
+     note: "other terminal; to DVDD / C_OUT (1V1 net) or VREG_LX, opposite of pin 1"}
