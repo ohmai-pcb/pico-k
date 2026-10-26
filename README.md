@@ -1,11 +1,32 @@
-# pico-k — RP2350A + MAX31856 Type-K Thermocouple Board (OhmAI v0.1 Dogfood Project)
+# 🌡️ pico-k — RP2350A + MAX31856 Type-K Thermocouple Board
 
-`pico-k` is the **v0.1 dogfood test project** built to develop, stress-test, and debug [OhmAI](https://github.com/ohmai-pcb/ohmai)'s 12-phase hardware workflow, datasheet checks, and review gates.
+**A 51 × 21 mm Raspberry Pi Pico 2 drop-in board with an integrated 19-bit Type-K thermocouple front end — built end-to-end as the v0.1 dogfood showcase for [OhmAI](https://github.com/ohmai-pcb/ohmai).**
 
-Electrically, it is a straightforward reference-level board combining three datasheet application circuits into the **51 × 21 mm** Raspberry Pi Pico 2 form factor with a flat bottom (`R-07`):
-1. **Raspberry Pi `RP2350A`** (`U1`, QFN-60 7×7 mm) + **Winbond `W25Q32RVXHJQ`** 4 MB QSPI flash (`U2`, XSON-8 2×3 mm) + **Abracon `ABM8-272-T3`** 12 MHz crystal (`Y1`) + internal 1.1 V DVDD buck inductor **MPS `MPL-AT2512-3R3`** (`L1`, 3.3 µH) from the *Hardware Design with RP2350* reference design.
-2. **TI `TPS63001DRCR`** (`U3`, VSON-10 3×3 mm) 3.3 V buck-boost regulator + **Murata `DFE201612P-2R2M`** 2.2 µH inductor (`L2`, 2016) + USB-C 16-pin receptacle (`J1`, `TYPE-C 16PIN 2MD(073)`), **STMicro `USBLC6-2SC6`** USB ESD array (`U4`, SOT-23-6), and **onsemi `MBR120VLSFT1G`** (`D1`, SOD-123FL) `VBUS`→`VSYS` Schottky diode.
-3. **Analog Devices `MAX31856MUD+T`** (`U5`, TSSOP-14) 19-bit cold-junction-compensated thermocouple-to-digital converter on `SPI1` (`GP12`–`GP15` via cuttable solder jumpers `JP1`–`JP4`; `DRDY` and `FAULT` broken out to `TP11`/`TP12`) with top-mounted **Omega `PCC-SMD`** miniature flat-pin Type-K socket clips (`J2`, `J3`) and a differential/common-mode RC input filter (`R12`/`R13` 100 Ω, `C25`/`C26` 10 nF X7R, `C14` 100 nF X7R).
+[![Built with OhmAI](https://img.shields.io/badge/Built_with-OhmAI_v0.1-7B61FF.svg)](https://github.com/ohmai-pcb/ohmai)
+[![KiCad 9](https://img.shields.io/badge/KiCad-9.0-314CB0.svg)](hardware/)
+[![DRC / ERC](https://img.shields.io/badge/ERC_%26_DRC-0_Violations-brightgreen.svg)](#project-status--honest-assessment)
+[![Status: Rev-A Pre-Fab](https://img.shields.io/badge/Status-Rev--A_Pre--Fab-orange.svg)](#project-status--honest-assessment)
+
+[**Honest Assessment & Grades**](#project-status--honest-assessment) · [**Key Specifications**](#key-specifications-verified-against-bombomcsv) · [**On-Board Pin Map**](#on-board-pin-map-rp2350a-verified-against-hardwaregenpinmapyaml) · [**Repo Map & Checks**](#repository-map--running-checks) · [**Exceptions & Waivers**](#exceptions-and-waivers)
+
+| 2D Routed Layout (`docs/layout/routed-2d.png`) | 3D Rendered Board (`docs/layout/routed-3d.png`) |
+|---|---|
+| ![pico-k 2D routed PCB](docs/layout/routed-2d.png) | ![pico-k 3D rendered PCB](docs/layout/routed-3d.png) |
+
+---
+
+### What is `pico-k`?
+
+`pico-k` is an open hardware reference project and the **v0.1 dogfood testbed** built to stress-test [OhmAI](https://github.com/ohmai-pcb/ohmai)'s 12-phase hardware engineering workflow, datasheet citation checks, 3-rule BOM sourcing, and independent review gates.
+
+Every artifact in this repository — from requirements (`docs/requirements.md`), safety/compliance analysis (`docs/safety.md`), and page-cited component constraints (`parts/constraints/*.yaml`) to the 6-sheet hierarchical KiCad 9 schematic (`hardware/*.kicad_sch`), 4-layer routed PCB (`hardware/pico-k.kicad_pcb`), multi-source BOM (`bom/bom.csv`), and pre-board bring-up self-test (`test/firmware/bringup_selftest.py`) — was generated and verified through `ohmai` with a human owner reviewing and signing off at each gate.
+
+### ✨ Hardware Highlights
+
+- 🧠 **Raspberry Pi Pico 2 Core (`RP2350A`)** — Dual Cortex-M33 / Hazard3 MCU (`U1`, QFN-60 7×7 mm), **Winbond `W25Q32RVXHJQ`** 4 MB QSPI flash (`U2`, XSON-8 2×3 mm), **Abracon `ABM8-272-T3`** 12 MHz crystal (`Y1`), and internal 1.1 V DVDD buck inductor **MPS `MPL-AT2512-3R3`** (`L1`, 3.3 µH) following the *Hardware Design with RP2350* reference circuit.
+- 🌡️ **19-Bit Cold-Junction-Compensated Type-K Front End (`MAX31856MUD+T`)** — Analog Devices `MAX31856` (`U5`, TSSOP-14) on `SPI1` (`GP12`–`GP15` via cuttable jumpers `JP1`–`JP4`; `DRDY` and `FAULT` on `TP11`/`TP12`), paired with top-mounted **Omega `PCC-SMD`** miniature flat-pin Type-K socket clips (`J2`, `J3`) and a differential/common-mode RC input filter (`R12`/`R13` 100 Ω, `C25`/`C26` 10 nF X7R, `C14` 100 nF X7R).
+- ⚡ **Buck-Boost 3.3 V Power & Protected USB-C** — **TI `TPS63001DRCR`** (`U3`, VSON-10 3×3 mm) 3.3 V buck-boost regulator with **Murata `DFE201612P-2R2M`** 2.2 µH inductor (`L2`, 2016), 16-pin USB-C receptacle (`J1`), **STMicro `USBLC6-2SC6`** ESD array (`U4`, SOT-23-6), and **onsemi `MBR120VLSFT1G`** (`D1`, SOD-123FL) `VBUS`→`VSYS` Schottky diode.
+- 📏 **Drop-In 51 × 21 mm Form Factor with Flat Bottom (`R-02`, `R-07`)** — 4-layer 1.0 mm FR-4 stackup (`F.Cu` / `In1.Cu` solid GND / `In2.Cu` 3V3 / `B.Cu`), single-sided top SMD assembly (`66` fitted parts across `36` BOM rows), and 40-pin Pico-compatible edge pinout (`J4`).
 
 ---
 
@@ -16,10 +37,6 @@ Electrically, it is a straightforward reference-level board combining three data
 | **1. End-to-End Autonomy** | **5.5 / 10** | **Human-steered, not hands-off, and not yet physically built.** The workflow produced a complete, rule-checked package from Phase 1 (`requirements`) through Phase 11 (`out/fab/rev-A/`) and Phase 12 pre-board preparation (`test/bringup-plan.md`, `test/firmware/bringup_selftest.py`, `docs/manual.md`). However, getting there required substantial human owner steering, course corrections, and tool fixes along the way (`D-001`–`D-030`, `docs/layout/retro.md`), and the board has **not yet been ordered or bench-tested** (`review:fab` and `review:bringup` remain open). |
 | **2. Engineering Complexity / Skill Level** | **4.5 / 10** | **Reference-application complexity.** Electrically, this is a straightforward modification of a Raspberry Pi Pico 2 reference design combining three application circuits (`RP2350A` core, `TPS63001` buck-boost, and `MAX31856` SPI thermocouple front end) — low-to-moderate difficulty for an electronics engineer. Where the workflow added genuine rigor was in quantitative verification (exact datasheet page citations, DC-bias derating math, thermal/loop checks, and verified multi-source BOM alternates). |
 | **3. PCB Routing & Layout Quality** | **5.0 / 10** | **DRC-clean (`0` violations, `0` unconnected), but visibly machine-routed.** Fitting 66 top-side SMD parts (including two large `PCC-SMD` thermocouple clips `J2`/`J3`) into 51 × 21 mm via `Freerouting` + scripted pass-completion (`hardware/gen/pcb/handroute.py`) produced meandering autorouter traces rather than clean human layout artistry. Closing the board required owner waivers for 25 short signal hops on the `In2.Cu` (`3V3`) plane (`D-020`/`D-023`, pour remains 1 piece with a 0.91 mm minimum neck), downsizing `C18`/`C27` to `0402` (`D-025`), and accepting stretched decoupler placement (`3.2–11.8 mm`) on several `RP2350A` supplies (`D-030`). Every compromise is listed in [Exceptions and waivers](#exceptions-and-waivers). |
-
-| 2D Routed Layout (`docs/layout/routed-2d.png`) | 3D Rendered Board (`docs/layout/routed-3d.png`) |
-|---|---|
-| ![pico-k 2D routed PCB](docs/layout/routed-2d.png) | ![pico-k 3D rendered PCB](docs/layout/routed-3d.png) |
 
 ---
 
