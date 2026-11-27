@@ -1,8 +1,11 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 The OhmAI contributors -->
 # 🌡️ pico-k — RP2350A + MAX31856 Type-K Thermocouple Board
 
 **A 51 × 21 mm Raspberry Pi Pico 2 drop-in board with an integrated 19-bit Type-K thermocouple front end — built end-to-end as the v0.1 dogfood showcase for [OhmAI](https://github.com/ohmai-pcb/ohmai).**
 
-[![Built with OhmAI](https://img.shields.io/badge/Built_with-OhmAI_v0.1-7B61FF.svg)](https://github.com/ohmai-pcb/ohmai)
+[![Designed with OhmAI](https://img.shields.io/badge/Designed_with-OhmAI-7B61FF.svg)](https://github.com/ohmai-pcb/ohmai)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![KiCad 9](https://img.shields.io/badge/KiCad-9.0-314CB0.svg)](hardware/)
 [![DRC / ERC](https://img.shields.io/badge/ERC_%26_DRC-0_Violations-brightgreen.svg)](#project-status--honest-assessment)
 [![Status: Rev-A Pre-Fab](https://img.shields.io/badge/Status-Rev--A_Pre--Fab-orange.svg)](#project-status--honest-assessment)
@@ -12,6 +15,8 @@
 | 2D Routed Layout (`docs/layout/routed-2d.png`) | 3D Rendered Board (`docs/layout/routed-3d.png`) |
 |---|---|
 | ![pico-k 2D routed PCB](docs/layout/routed-2d.png) | ![pico-k 3D rendered PCB](docs/layout/routed-3d.png) |
+
+**Designed with [OhmAI](https://github.com/ohmai-pcb/ohmai).** Rev-A design, pre-fab: ERC and DRC are clean; the board has not been fabricated yet.
 
 ---
 
@@ -132,3 +137,12 @@ gate configuration are unchanged, and another project starts without any of them
   possible, but the owner chose Reviewer-A.
 - **D-029 – TPS63001 input capacitor deferral (superseded by D-030).** With the pre-D-030 3015 inductor and 1206 C20, four placement/reroute attempts could not move C20 to U3 VIN and close routing at 51 × 21 mm; superseded by D-030, which resolves L1 on the 51 × 21 mm board. The approved In2 exceptions (VBUS_SENSE hop, SMPS_PS stub) were not needed and are not used on the board.
 - **D-030 – BOM and layout rework for TPS63001 and ADC_AVDD at 51 × 21 mm.** L2 changed to Murata DFE201612P-2R2M (2016, JLC extended part C79317, custom footprint `pico-k:L_Murata_DFE201612P` with an all-layer under-coil keepout), C20 changed to Samsung CL21A106KAYNNNE (0805 10 µF 25 V X5R, ~5.8 µF typical / ~5.0 µF worst-case at 5 V ≥ 4.7 µF SLVS520C minimum), and C32 (100 nF 0402 CL05B104KO5NNNC) was added on ADC_AVDD at U1 pin 44 alongside C27. On the routed 51 × 21 mm board (`5d80779`, 0 DRC violations, 0 unconnected items), C20.1 reaches U3.5 [VIN] in 1.65 mm center-to-center (0.62 mm pad-edge gap, 1.55 mm routed on F.Cu at 0.30 mm width with 0 vias), resolving Reviewer-A L1; L2 has zero copper across all layers in its under-coil keepout and 0.25 mm switch traces (resolving L6 and L13); C32 decouples U1.44 (resolving L5 and Q3). The In2.Cu 3V3 pour remains 1 piece (772.70 mm², narrowest neck 0.91 mm), In1.Cu has 0 signal tracks, and only short signal hops (`DVDD`, `/ADC_AVDD`, `/ADC_VREF`, `/GP8`–`/GP10`, `/GP12`–`/GP14`, `/GP18`–`/GP22`, `/GP25`, `/QSPI_SD1`, `/QSPI_SD2`, `/QSPI_SS`, `/VSYS_SENSE`, `Net-(D1-A)`, `Net-(J4-Pad30)`) use In2.Cu under D-020/D-023 (neither the VBUS_SENSE In2 hop nor the SMPS_PS In2 stub was used). The remaining 51 × 21 mm placement/density trade-offs (Reviewer-A L2–L4 and L7–L12) were accepted by the owner in `reviews/layout/resolutions.md`.
+
+
+---
+
+## License
+
+pico-k is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+Designed with [OhmAI](https://github.com/ohmai-pcb/ohmai).

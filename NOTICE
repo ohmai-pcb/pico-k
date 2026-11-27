@@ -1,0 +1,16 @@
+pico-k
+Copyright 2026 Johan Westlund and the OhmAI contributors
+
+pico-k schematic, PCB, documentation, firmware examples and original
+supporting files are licensed under the Apache License, Version 2.0
+(see LICENSE).
+
+This repository is an example hardware design created with OhmAI
+(https://github.com/ohmai-pcb/ohmai). OhmAI itself is a separate work
+and is not relicensed by this notice.
+
+CAD data from KiCad libraries used by this project remains under the
+KiCad library licenses. Manufacturer datasheets listed in
+datasheets/manifest.yaml are not shipped in this repository and remain
+under their owners' terms. LCSC and JLCPCB part numbers in the BOM are
+sourcing references only; no EasyEDA or LCSC CAD libraries are bundled.

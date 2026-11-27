@@ -15,7 +15,7 @@ permissions:
 env:
   # Pin to the OhmAI version in ohmai.yaml (upgrade in its own PR).
   OHMAI_PIP: "ohmai==0.1.0.dev0"
-  # Until OhmAI is on PyPI: OHMAI_PIP: "git+https://github.com/ohmai/ohmai@v0.1.0.dev0#subdirectory=cli"
+  # Until OhmAI is on PyPI: OHMAI_PIP: "git+https://github.com/ohmai-pcb/ohmai@v0.1.0.dev0#subdirectory=cli"
 
 jobs:
   checks:
