@@ -10,7 +10,7 @@
 [![DRC / ERC](https://img.shields.io/badge/ERC_%26_DRC-0_Violations-brightgreen.svg)](#project-status--honest-assessment)
 [![Status: Rev-A Pre-Fab](https://img.shields.io/badge/Status-Rev--A_Pre--Fab-orange.svg)](#project-status--honest-assessment)
 
-[**Honest Assessment & Grades**](#project-status--honest-assessment) · [**Key Specifications**](#key-specifications-verified-against-bombomcsv) · [**On-Board Pin Map**](#on-board-pin-map-rp2350a-verified-against-hardwaregenpinmapyaml) · [**Repo Map & Checks**](#repository-map--running-checks) · [**Exceptions & Waivers**](#exceptions-and-waivers)
+[**Honest Assessment & Grades**](#project-status--honest-assessment) · [**Design effort / AI usage (estimate)**](#design-effort--ai-usage-estimate) · [**Key Specifications**](#key-specifications-verified-against-bombomcsv) · [**On-Board Pin Map**](#on-board-pin-map-rp2350a-verified-against-hardwaregenpinmapyaml) · [**Repo Map & Checks**](#repository-map--running-checks) · [**Exceptions & Waivers**](#exceptions-and-waivers)
 
 | 2D Routed Layout (`docs/layout/routed-2d.png`) | 3D Rendered Board (`docs/layout/routed-3d.png`) |
 |---|---|
@@ -138,6 +138,24 @@ gate configuration are unchanged, and another project starts without any of them
 - **D-029 – TPS63001 input capacitor deferral (superseded by D-030).** With the pre-D-030 3015 inductor and 1206 C20, four placement/reroute attempts could not move C20 to U3 VIN and close routing at 51 × 21 mm; superseded by D-030, which resolves L1 on the 51 × 21 mm board. The approved In2 exceptions (VBUS_SENSE hop, SMPS_PS stub) were not needed and are not used on the board.
 - **D-030 – BOM and layout rework for TPS63001 and ADC_AVDD at 51 × 21 mm.** L2 changed to Murata DFE201612P-2R2M (2016, JLC extended part C79317, custom footprint `pico-k:L_Murata_DFE201612P` with an all-layer under-coil keepout), C20 changed to Samsung CL21A106KAYNNNE (0805 10 µF 25 V X5R, ~5.8 µF typical / ~5.0 µF worst-case at 5 V ≥ 4.7 µF SLVS520C minimum), and C32 (100 nF 0402 CL05B104KO5NNNC) was added on ADC_AVDD at U1 pin 44 alongside C27. On the routed 51 × 21 mm board (`5d80779`, 0 DRC violations, 0 unconnected items), C20.1 reaches U3.5 [VIN] in 1.65 mm center-to-center (0.62 mm pad-edge gap, 1.55 mm routed on F.Cu at 0.30 mm width with 0 vias), resolving Reviewer-A L1; L2 has zero copper across all layers in its under-coil keepout and 0.25 mm switch traces (resolving L6 and L13); C32 decouples U1.44 (resolving L5 and Q3). The In2.Cu 3V3 pour remains 1 piece (772.70 mm², narrowest neck 0.91 mm), In1.Cu has 0 signal tracks, and only short signal hops (`DVDD`, `/ADC_AVDD`, `/ADC_VREF`, `/GP8`–`/GP10`, `/GP12`–`/GP14`, `/GP18`–`/GP22`, `/GP25`, `/QSPI_SD1`, `/QSPI_SD2`, `/QSPI_SS`, `/VSYS_SENSE`, `Net-(D1-A)`, `Net-(J4-Pad30)`) use In2.Cu under D-020/D-023 (neither the VBUS_SENSE In2 hop nor the SMPS_PS In2 stub was used). The remaining 51 × 21 mm placement/density trade-offs (Reviewer-A L2–L4 and L7–L12) were accepted by the owner in `reviews/layout/resolutions.md`.
 
+---
+
+## Design effort / AI usage (estimate)
+
+Figures below are an **estimate** of AI-agent design effort from the project's commit log and recorded decisions. They are not billed usage, and request or token counts are not available for the full design period. Toolchain development that was not specific to this board is excluded.
+
+| | |
+|---|---|
+| Wall-clock span | 15–26 October 2026 (12 calendar days) |
+| Active days | 7 days with commits (6 in the pre-publication history, plus a documentation commit on 26 October). No commits 18–22 October. |
+| Agent sessions | 10 (9 design sessions in the pre-publication history, plus the 26 October documentation commit) |
+| Git commits | 182 in the pre-publication history (176 non-merge); later condensed to 2 commits on the published default branch |
+| Approximate usage | About 33 hours of elapsed time across the 9 design sessions (35 distinct hours that contain a commit), plus one later documentation commit. Lower bound. |
+| Human decisions | 31 recorded design decisions (D-000–D-030), plus independent reviews of constraints, schematic, layout (2 rounds), and BOM (2 rounds) |
+
+Freerouting 2.1.0 and 2.2.4 were used; after those runs plateaued, remaining nets were finished with a scripted hand-router. In the pre-publication history, 13 commits mention Freerouting and 33 mention hand routing.
+
+Method: a session is a cluster of commits with no gap longer than 3 hours. Session hours are the elapsed time from the first to the last commit in each cluster. That is a lower bound: it omits agent work that left no commit, and the independent reviewer's time. Chat-turn and token totals were not available for the whole design period.
 
 ---
 
