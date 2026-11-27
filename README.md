@@ -1,11 +1,11 @@
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: CERN-OHL-P-2.0 -->
 <!-- Copyright 2026 The OhmAI contributors -->
 # 🌡️ pico-k — RP2350A + MAX31856 Type-K Thermocouple Board
 
 **A 51 × 21 mm Raspberry Pi Pico 2 drop-in board with an integrated 19-bit Type-K thermocouple front end — built end-to-end as the v0.1 dogfood showcase for [OhmAI](https://github.com/ohmai-pcb/ohmai).**
 
 [![Designed with OhmAI](https://img.shields.io/badge/Designed_with-OhmAI-7B61FF.svg)](https://github.com/ohmai-pcb/ohmai)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![License: CERN-OHL-P-2.0](https://img.shields.io/badge/License-CERN--OHL--P--2.0-blue.svg)](LICENSE)
 [![KiCad 9](https://img.shields.io/badge/KiCad-9.0-314CB0.svg)](hardware/)
 [![DRC / ERC](https://img.shields.io/badge/ERC_%26_DRC-0_Violations-brightgreen.svg)](#project-status--honest-assessment)
 [![Status: Rev-A Pre-Fab](https://img.shields.io/badge/Status-Rev--A_Pre--Fab-orange.svg)](#project-status--honest-assessment)
@@ -161,6 +161,8 @@ Method: a session is a cluster of commits with no gap longer than 3 hours. Sessi
 
 ## License
 
-pico-k is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+pico-k is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+The [OhmAI](https://github.com/ohmai-pcb/ohmai) tool used to design this board remains licensed under Apache-2.0.
 
 Designed with [OhmAI](https://github.com/ohmai-pcb/ohmai).
